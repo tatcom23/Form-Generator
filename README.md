@@ -57,3 +57,22 @@ Este projeto está sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para m
 ---
 🚀 Criado para facilitar a geração e gestão de formulários personalizados! 🚀
 
+---
+
+# Summary (English)
+
+The Form Generator is a dynamic and customizable tool for creating forms, allowing users to design, manage, and analyze forms for various purposes such as surveys, registrations, and studies. It features a flexible database structure, supporting categories, multiple question types, conditional logic, and automatic form generation.
+
+## 🔧 Key Features:
+
+Custom form creation with optional categories
+
+Support for various question types (text, multiple choice, yes/no, etc.)
+
+Conditional questions based on previous answers
+
+Secure user authentication and data storage
+
+Responsive and intuitive interface
+
+This tool provides an efficient way to create and manage personalized forms, ensuring structured data collection and analysis.
