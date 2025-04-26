@@ -1,37 +1,95 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Criação de Formulário</title>
-  <link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Generator - Crie Formulários Personalizados</title>
+    <link rel="stylesheet" href="css/index.css">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <div class="container">
-    <div id="create-form" class="module active">
-      <h2>Criar Formulário</h2>
-      <form id="form">
-        <label for="formName">Nome do Formulário</label>
-        <input type="text" id="formName" placeholder="Digite o nome do formulário" required>
 
-        <div id="categories-container">
-          <h3>Categorias</h3>
-          <div id="category-list"></div>
-          <button type="button" onclick="addCategory()">Adicionar Categoria</button>
-        </div>
-
-        <div id="questions-container">
-          <h3>Perguntas</h3>
-          <!-- Perguntas serão adicionadas dinamicamente aqui -->
-        </div>
-
-        <button type="button" onclick="addQuestion()">Adicionar Pergunta</button>
-        <button type="submit">Salvar Formulário</button>
-      </form>
-      <button onclick="previewForm()">Visualizar Prévia</button>
+<!-- Header -->
+<header>
+    <div class="container">
+        <a href="#" class="logo">Form Generator</a>
+        <nav>
+            <ul>
+                <li><a href="#features">Benefícios</a></li>
+                <li><a href="#pricing">Preços</a></li>
+                <li><a href="#contact">Contato</a></li>
+                <li><a href="pages/login/login.php">Login</a></li>
+            </ul>
+        </nav>
     </div>
-  </div>
+</header>
 
-  <script src="js/scripts.js"></script>
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h1>CRIE FORMULÁRIOS PERSONALIZADOS</h1>
+        <p class="subtitle">Desenvolva, gerencie e analise formulários dinâmicos com facilidade.</p>
+        <button class="cta-btn" onclick="window.location.href='/formulario-prototipo/pages/criarUsuario/criarUsuario.php'">
+            Criar Conta Gratuita
+        </button>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features">
+    <div class="container">
+        <h2>Por que escolher o Form Generator?</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <i class="fas fa-pencil-alt"></i>
+                <h3>Criação Flexível de Perguntas e Respostas</h3>
+                <p>Personalize seus formulários com diferentes tipos de perguntas e respostas.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-bar"></i>
+                <h3>Análise de Dados com Gráficos Dinâmicos</h3>
+                <p>Visualize e analise suas respostas em tempo real com gráficos intuitivos.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Interface Responsiva para Todos os Dispositivos</h3>
+                <p>Acesse e preencha formulários de qualquer dispositivo sem perda de funcionalidade.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials">
+    <div class="container">
+        <h2>O que nossos usuários dizem:</h2>
+        <div class="testimonial-item">
+            <img src="../formulario-prototipo/img/user_avatar.png" alt="Avatar do usuário" class="avatar">
+            <div class="testimonial-content">
+                <p>"O Form Generator simplificou nossa coleta de dados. Criamos formulários personalizados em minutos!"</p>
+                <cite> - João Silva, Analista de Pesquisa</cite>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <p>&copy; 2025 Form Generator. Desenvolvido por Beatriz Silva Santos e Tatiana Nunes.</p>
+        <ul class="footer-links">
+            <li><a href="#">Termos de Uso</a></li>
+            <li><a href="#">Política de Privacidade</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>

@@ -1,4 +1,5 @@
-let questionCount = 0;
+// Variáveis para controle de contagem de perguntas e categorias
+let questionCount = 0; 
 let categoryCount = 0;
 let categories = [];
 
@@ -14,7 +15,7 @@ const fixedAnswerTypes = [
   'Arquivo'
 ];
 
-// Função para adicionar uma nova categoria
+// Função para adicionar uma nova categoria (Somente Admin)
 function addCategory() {
   categoryCount++;
   const categoryContainer = document.createElement('div');
@@ -29,14 +30,14 @@ function addCategory() {
   document.getElementById('category-list').appendChild(categoryContainer);
 }
 
-// Função para remover uma categoria
+// Função para remover uma categoria (Somente Admin)
 function removeCategory(categoryId) {
   const category = document.getElementById('category-' + categoryId);
   category.remove();
   categories = categories.filter((_, index) => index !== categoryId - 1);
 }
 
-// Função para adicionar uma nova pergunta
+// Função para adicionar uma nova pergunta (Admin e Usuário)
 function addQuestion() {
   questionCount++;
   const questionContainer = document.createElement('div');
@@ -83,7 +84,7 @@ function addQuestion() {
   toggleAnswerOptions(questionCount);
 }
 
-// Função para adicionar opções de resposta
+// Função para adicionar opções de resposta (Somente para perguntas de "Múltiplas Escolhas")
 function addAnswerOption(questionId) {
   const answerOptionsDiv = document.getElementById('answer-options-' + questionId);
   const newOption = document.createElement('input');
@@ -92,7 +93,7 @@ function addAnswerOption(questionId) {
   answerOptionsDiv.insertBefore(newOption, answerOptionsDiv.lastElementChild);
 }
 
-// Função para alternar a visibilidade das opções de resposta
+// Função para alternar a visibilidade das opções de resposta (Somente para "Múltiplas Escolhas")
 function toggleAnswerOptions(questionId) {
   const questionType = document.getElementById('question-type-' + questionId).value;
   const answerOptionsDiv = document.getElementById('answer-options-' + questionId);
@@ -124,6 +125,7 @@ function showConditionalQuestions(questionId) {
       <input type="text" id="conditional-question-no-${questionId}" placeholder="Escreva a pergunta relacionada ao 'Não'">
     `;
     conditionalQuestionContainer.innerHTML = conditionalQuestionHTML;
+    conditionalQuestionContainer.classList.add('conditional-question'); // Adicionando a classe para aplicar o estilo
   } else {
     conditionalQuestionContainer.innerHTML = '';
   }
@@ -180,3 +182,4 @@ function previewForm() {
 
   alert(previewContent);
 }
+
