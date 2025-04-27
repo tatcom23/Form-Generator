@@ -11,7 +11,7 @@
     <h1>Recuperar Senha</h1>
     <p>Informe seu CPF para redefinir a senha</p>
 
-    <form class="login-form" action="enviar_email_recuperacao.php" method="POST">
+    <form class="login-form" action="enviarEmailRecuperacao.php" method="POST">
         <input type="text" id="cd_cpf_usuario" name="cd_cpf_usuario" placeholder="CPF do Usuário" required>
 
         <button type="submit" class="cta-btn">Enviar link de recuperação</button>

@@ -2,23 +2,25 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Criar Conta - Form Generator</title>
-    <link rel="stylesheet" href="../../css/loginCadastro.css"> 
+    <title>Cadastro - Form Generator</title>
+    <link rel="stylesheet" href="../../css/loginCadastro.css"> <!-- Link para o CSS -->
 </head>
 <body>
 
 <section class="login-container">
-    <h1>Crie sua Conta</h1>
-    <p>Preencha os dados abaixo</p>
+    <h1>Bem-vindo ao Form Generator</h1>
+    <p>Crie sua conta para acessar o sistema</p>
 
-    <form class="login-form" action="processar_criar_usuario.php" method="POST">
-        <input type="text" id="id_usuario" name="id_usuario" placeholder="ID do Usuário" required>
-        <input type="text" id="cd_cpf_usuario" name="cd_cpf_usuario" placeholder="CPF do Usuário" required>
+    <form class="login-form" action="processarCriarUsuario.php" method="POST">
+        <input type="text" id="nm_usuario" name="nm_usuario" placeholder="Nome Completo" required>
+        <input type="text" id="cd_cpf_usuario" name="cd_cpf_usuario" placeholder="CPF (somente números)" required>
+        <input type="email" id="nm_email_usuario" name="nm_email_usuario" placeholder="E-mail" required>
         <input type="password" id="cd_senha_usuario" name="cd_senha_usuario" placeholder="Senha" required>
 
-        <button type="submit" class="cta-btn">Criar Conta</button>
+        <!-- Botão de Cadastro -->
+        <button type="submit" class="cta-btn">Cadastrar</button>
 
-        <p class="create-account">Já tem uma conta? <a href="../login/login.php">Login</a></p>
+        <p class="create-account">Já tem uma conta? <a href="/formulario-prototipo/pages/login/login.php">Fazer Login</a></p>
     </form>
 </section>
 </body>
