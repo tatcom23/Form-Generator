@@ -19,13 +19,13 @@
         <input type="password" id="cd_senha_usuario" name="cd_senha_usuario" placeholder="Senha" required>
 
         <!-- Link para redefinir senha -->
-        <p class="forgot-password"><a href="/formulario-prototipo/pages/recuperarSenha/recuperarSenha.php">Esqueceu a senha?</a></p>
+        <p class="forgot-password"><a href="/Form-Generator/formulario-prototipo/pages/recuperarSenha/recuperarSenha.php">Esqueceu a senha?</a></p>
 
         <!-- Botão de Login -->
         <button type="submit" class="cta-btn">Login</button>
 
         <!-- Link para criar conta -->
-        <p class="create-account">Não tem uma conta? <a href="/formulario-prototipo/pages/criarUsuario/criarUsuario.php">Criar Conta</a></p>
+        <p class="create-account">Não tem uma conta? <a href="/Form-Generator/formulario-prototipo/pages/criarUsuario/criarUsuario.php">Criar Conta</a></p>
     </form>
 </section>
 </body>

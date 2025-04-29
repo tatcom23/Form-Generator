@@ -14,10 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario = new Usuario($nm_usuario, $cd_cpf_usuario, $nm_email_usuario, $cd_senha_usuario);
 
     // Conexão com o banco de dados
-    $servername = "localhost"; // Endereço do servidor MySQL
-    $username = "root";        // Usuário do MySQL
-    $password = "";            // Senha do MySQL (geralmente vazia no XAMPP)
-    $dbname = "formulario_generator"; // Nome do banco de dados
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "formulario_generator";
 
     // Cria a conexão
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -27,27 +27,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Conexão falhou: " . $conn->connect_error);
     }
 
-    // Prepara a query SQL para inserir os dados
+    // Prepara a query SQL
     $sql = "INSERT INTO usuario (nm_usuario, cd_cpf_usuario, nm_email_usuario, cd_senha_usuario)
             VALUES (?, ?, ?, ?)";
 
-    // Prepara a declaração
     $stmt = $conn->prepare($sql);
     if ($stmt === false) {
         die("Erro na preparação da declaração: " . $conn->error);
     }
 
-    // Vincula os parâmetros
+    // Faz o bind dos parâmetros
     $stmt->bind_param("ssss", $usuario->nm_usuario, $usuario->cd_cpf_usuario, $usuario->nm_email_usuario, $usuario->cd_senha_usuario);
 
-    // Executa a declaração
+    // Executa a query
     if ($stmt->execute()) {
-        echo "Usuário cadastrado com sucesso!";
+        // Se cadastro foi feito com sucesso, mostra o alerta e redireciona
+        echo "<script>
+            alert('Usuário cadastrado com sucesso!');
+            window.location.href = '/Form-Generator/formulario-prototipo/pages/login/login.php';
+        </script>";
+        exit();
     } else {
-        echo "Erro ao cadastrar usuário: " . $stmt->error;
+        echo "<script>
+            alert('Erro ao cadastrar usuário: " . $stmt->error . "');
+            window.history.back();
+        </script>";
     }
 
-    // Fecha a declaração e a conexão
+    // Fecha o stmt e a conexão
     $stmt->close();
     $conn->close();
 }

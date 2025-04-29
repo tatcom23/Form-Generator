@@ -35,7 +35,9 @@ $formularios = [
         <a href="admin_home.php" class="logo">Painel Admin</a>
         <nav>
             <ul>
-                <li><a href="criar_formulario.php">Criar Formulário</a></li>
+                <li><a href="/formulario-prototipo/pages/formularios/criarFormulario.php">Criar Formulário</a></li>
+                <li><a href="/formulario-prototipo/pages/formularios/editarFormulario.php">Editar Formulário</a></li>
+                <li><a href="/formulario-prototipo/pages/formularios/excluirFormulario.php">Excluir Formulário</a></li>
                 <li><a href="logout.php">Sair</a></li>
             </ul>
         </nav>

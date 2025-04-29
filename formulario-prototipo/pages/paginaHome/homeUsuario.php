@@ -35,7 +35,8 @@ $formularios_disponiveis = [
             <a href="home.php" class="logo">Painel Usuário</a>
             <nav>
                 <ul>
-                    <li><a href="home.php">Home</a></li>
+                    <li><a href="homeUsuario.php">Home</a></li>
+                    <li><a href="/formulario-prototipo/pages/usuario/responderFormulario.php">Responder Formulários</a></li>
                     <li><a href="logout.php">Sair</a></li>
                 </ul>
             </nav>
