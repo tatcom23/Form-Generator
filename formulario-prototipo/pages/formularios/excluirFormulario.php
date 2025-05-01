@@ -10,7 +10,8 @@ require_once 'Formulario.php';
 
 // Coleta o ID do formulário da URL
 if (!isset($_GET['id']) || empty($_GET['id'])) {
-    echo "<p>ID do formulário não especificado.</p>";
+    $_SESSION['mensagem'] = "ID do formulário não especificado.";
+    header("Location: listarFormulario.php");
     exit;
 }
 
@@ -26,7 +27,9 @@ $dbname = "formulario_generator";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
+    $_SESSION['mensagem'] = "Erro de conexão com o banco de dados.";
+    header("Location: listarFormulario.php");
+    exit;
 }
 
 // Exclui o formulário do banco de dados
@@ -34,13 +37,20 @@ $sql = "DELETE FROM FORMULARIO WHERE id_formulario = ? AND USUARIO_id_usuario = 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("ii", $id_formulario, $idUsuario);
 
-if ($stmt->execute()) {
-    echo "<h2>Formulário excluído com sucesso!</h2>";
-    echo "<p><a href='listarFormulario.php'>Ver meus formulários</a></p>";
-} else {
-    echo "<p>Ocorreu um erro ao excluir o formulário.</p>";
+try {
+    if ($stmt->execute()) {
+        $_SESSION['mensagem'] = "Formulário excluído com sucesso!";
+    } else {
+        throw new Exception("Ocorreu um erro ao excluir o formulário.");
+    }
+} catch (Exception $e) {
+    $_SESSION['mensagem'] = "Erro: " . $e->getMessage();
 }
 
 $stmt->close();
 $conn->close();
+
+// Redireciona para listarFormulario.php
+header("Location: listarFormulario.php");
+exit;
 ?>

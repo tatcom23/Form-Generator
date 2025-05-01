@@ -5,37 +5,38 @@ if (!isset($_SESSION['id_usuario'])) {
     echo "<p>Você precisa estar logado para criar um formulário.</p>";
     exit;
 }
-
-require_once 'Formulario.php'; // Caminho relativo para a classe
-
-// Coleta os dados do formulário
-$nome = $_POST['nm_formulario'];
-$dataInicio = $_POST['dt_inicio_formulario'];
-$dataFim = $_POST['dt_fim_formulario'];
-$idUsuario = $_SESSION['id_usuario'];
-
-// Conexão com o banco de dados
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "formulario_generator";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
-}
-
-// Cria um novo objeto Formulario
-$formulario = new Formulario($nome, $dataInicio, $dataFim, $idUsuario);
-
-// Salva o formulário no banco de dados
-if ($formulario->salvar($conn)) {
-    echo "<h2>Formulário criado com sucesso!</h2>";
-    echo "<p><a href='listarFormulario.php'>Ver meus formulários</a></p>";
-} else {
-    echo "<p>Ocorreu um erro ao criar o formulário.</p>";
-}
-
-$conn->close();
 ?>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Novo Formulário - Form Generator</title>
+    <link rel="stylesheet" href="../../css/loginCadastro.css">
+</head>
+<body>
+
+<section class="login-container">
+    <h1>Criar Novo Formulário</h1>
+    <form class="login-form" action="processarCriarFormulario.php" method="POST">
+        <!-- Nome do Formulário -->
+        <label for="nm_formulario">Nome do Formulário:</label>
+        <input type="text" name="nm_formulario" placeholder="Digite o nome do formulário" required>
+
+        <!-- Data de Início -->
+        <label for="dt_inicio_formulario">Data de Início:</label>
+        <input type="date" name="dt_inicio_formulario" required>
+
+        <!-- Data de Fim -->
+        <label for="dt_fim_formulario">Data de Fim:</label>
+        <input type="date" name="dt_fim_formulario" required>
+
+        <!-- Botão de Envio -->
+        <button type="submit" class="cta-btn">Criar Formulário</button>
+    </form>
+
+    <p><a href="listarFormulario.php" class="cta-btn">Voltar para Meus Formulários</a></p>
+</section>
+
+</body>
+</html>

@@ -2,15 +2,22 @@
 session_start(); // Inicia a sessão para obter o ID do usuário logado
 
 if (!isset($_SESSION['id_usuario'])) {
-    echo "<p>Você precisa estar logado para criar um formulário.</p>";
+    $_SESSION['mensagem'] = "Você precisa estar logado para criar um formulário.";
+    header("Location: listarFormulario.php");
     exit;
 }
 
-// Coleta os dados do formulário
-$nm_formulario = $_POST['nm_formulario'];
-$dt_inicio_formulario = $_POST['dt_inicio_formulario'];
-$dt_fim_formulario = $_POST['dt_fim_formulario'];
-$id_usuario = $_SESSION['id_usuario']; // ID do usuário logado
+// Coleta os dados do formulário com validação
+$nm_formulario = $_POST['nm_formulario'] ?? null;
+$dt_inicio_formulario = $_POST['dt_inicio_formulario'] ?? null;
+$dt_fim_formulario = $_POST['dt_fim_formulario'] ?? null;
+
+// Verifica se todos os campos obrigatórios estão preenchidos
+if (empty($nm_formulario) || empty($dt_inicio_formulario) || empty($dt_fim_formulario)) {
+    $_SESSION['mensagem'] = "Por favor, preencha todos os campos obrigatórios.";
+    header("Location: criarFormulario.php");
+    exit;
+}
 
 // Conexão com o banco de dados
 $servername = "localhost";
@@ -22,20 +29,37 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Verifica a conexão
 if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
+    $_SESSION['mensagem'] = "Erro de conexão com o banco de dados.";
+    header("Location: criarFormulario.php");
+    exit;
 }
 
 // Insere o formulário no banco de dados
 $sql = "INSERT INTO FORMULARIO (nm_formulario, dt_inicio_formulario, dt_fim_formulario, USUARIO_id_usuario)
         VALUES (?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
+
+if (!$stmt) {
+    $_SESSION['mensagem'] = "Ocorreu um erro ao preparar a consulta.";
+    header("Location: criarFormulario.php");
+    exit;
+}
+
+$id_usuario = $_SESSION['id_usuario'];
 $stmt->bind_param("sssi", $nm_formulario, $dt_inicio_formulario, $dt_fim_formulario, $id_usuario);
 
-if ($stmt->execute()) {
-    echo "<h2>Formulário criado com sucesso!</h2>";
-    echo "<p><a href='listarFormularios.php'>Ver meus formulários</a></p>";
-} else {
-    echo "<p>Ocorreu um erro ao criar o formulário: " . $stmt->error . "</p>";
+try {
+    if ($stmt->execute()) {
+        $_SESSION['mensagem'] = "Formulário criado com sucesso!";
+        header("Location: listarFormulario.php");
+        exit;
+    } else {
+        throw new Exception("Ocorreu um erro ao criar o formulário.");
+    }
+} catch (Exception $e) {
+    $_SESSION['mensagem'] = "Erro: " . $e->getMessage();
+    header("Location: criarFormulario.php");
+    exit;
 }
 
 $stmt->close();

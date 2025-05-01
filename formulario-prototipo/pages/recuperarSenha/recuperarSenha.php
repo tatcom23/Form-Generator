@@ -16,7 +16,7 @@
 
         <button type="submit" class="cta-btn">Enviar link de recuperação</button>
 
-        <p class="create-account"><a href="/Form-Generator/formulario-prototipo/pages/login/login.php">Voltar para o login</a></p>
+        <p class="create-account"><a href="/formulario-prototipo/pages/login/login.php">Voltar para o login</a></p>
     </form>
 </section>
 

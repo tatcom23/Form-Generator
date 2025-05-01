@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Se cadastro foi feito com sucesso, mostra o alerta e redireciona
         echo "<script>
             alert('Usuário cadastrado com sucesso!');
-            window.location.href = '/Form-Generator/formulario-prototipo/pages/login/login.php';
+            window.location.href = '/formulario-prototipo/pages/login/login.php';
         </script>";
         exit();
     } else {

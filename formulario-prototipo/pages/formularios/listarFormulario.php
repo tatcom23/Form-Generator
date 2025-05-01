@@ -6,7 +6,7 @@ if (!isset($_SESSION['id_usuario'])) {
     exit;
 }
 
-require_once 'Formulario.php'; // Caminho relativo para a classe
+require_once 'Formulario.php';
 
 $idUsuario = $_SESSION['id_usuario'];
 
@@ -40,6 +40,14 @@ $conn->close();
 <section class="login-container">
     <h1>Meus Formulários</h1>
 
+    <?php
+    // Exibe a mensagem flash, se existir
+    if (isset($_SESSION['mensagem'])) {
+        echo "<p style='color: green; font-weight: bold;'>" . htmlspecialchars($_SESSION['mensagem']) . "</p>";
+        unset($_SESSION['mensagem']); // Limpa a mensagem após exibi-la
+    }
+    ?>
+
     <?php if (count($formularios) > 0): ?>
         <table border="1">
             <tr>
@@ -56,8 +64,10 @@ $conn->close();
                     <td><?php echo htmlspecialchars($formulario['dt_inicio_formulario']); ?></td>
                     <td><?php echo htmlspecialchars($formulario['dt_fim_formulario']); ?></td>
                     <td>
+                        <a href="detalhesFormulario.php?id=<?php echo $formulario['id_formulario']; ?>">Detalhes</a> |
                         <a href="editarFormulario.php?id=<?php echo $formulario['id_formulario']; ?>">Editar</a> |
-                        <a href="excluirFormulario.php?id=<?php echo $formulario['id_formulario']; ?>" onclick="return confirm('Tem certeza?')">Excluir</a>
+                        <a href="excluirFormulario.php?id=<?php echo $formulario['id_formulario']; ?>" onclick="return confirm('Tem certeza?')">Excluir</a> |
+                        <a href="responderFormulario.php?id=<?php echo $formulario['id_formulario']; ?>">Responder</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

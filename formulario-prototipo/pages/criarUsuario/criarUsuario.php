@@ -20,7 +20,7 @@
         <!-- Botão de Cadastro -->
         <button type="submit" class="cta-btn">Cadastrar</button>
 
-        <p class="create-account">Já tem uma conta? <a href="/Form-Generator/formulario-prototipo/pages/login/login.php">Fazer Login</a></p>
+        <p class="create-account">Já tem uma conta? <a href="/formulario-prototipo/pages/login/login.php">Fazer Login</a></p>
     </form>
 </section>
 </body>
