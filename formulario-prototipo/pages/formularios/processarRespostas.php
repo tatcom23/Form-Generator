@@ -103,7 +103,7 @@ echo "
     <title>Confirmação</title>
     <script>
         alert('Respostas enviadas com sucesso!');
-        window.location.href = '../../'; // Caminho ajustado para a home
+        window.location.href = 'visualizarRespostas.php?id=" . urlencode($id_formulario) . "'; // Redireciona para visualizarRespostas.php
     </script>
 </head>
 <body>
