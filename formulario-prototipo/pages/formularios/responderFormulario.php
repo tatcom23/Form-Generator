@@ -26,6 +26,21 @@ if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
 
+// Busca o nome do formulário
+$sql_nome_formulario = "SELECT nm_formulario FROM FORMULARIO WHERE id_formulario = ?";
+$stmt_nome_formulario = $conn->prepare($sql_nome_formulario);
+$stmt_nome_formulario->bind_param("i", $id_formulario);
+$stmt_nome_formulario->execute();
+$result_nome_formulario = $stmt_nome_formulario->get_result();
+$formulario = $result_nome_formulario->fetch_assoc();
+
+if (!$formulario) {
+    echo "<p>Formulário não encontrado.</p>";
+    exit;
+}
+
+$nome_formulario = $formulario['nm_formulario'] ?? 'Formulário';
+
 // Busca as perguntas do formulário
 $sql_perguntas = "SELECT p.id_pergunta, p.ds_pergunta, tp.nm_tipo_pergunta 
                   FROM PERGUNTA p
@@ -37,6 +52,21 @@ $stmt_perguntas->execute();
 $result_perguntas = $stmt_perguntas->get_result();
 $perguntas = $result_perguntas->fetch_all(MYSQLI_ASSOC);
 
+// Busca as opções de resposta para perguntas de múltipla escolha e única escolha
+$opcoes_resposta = [];
+foreach ($perguntas as $pergunta) {
+    $sql_opcoes = "SELECT id_resposta, ds_resposta 
+                   FROM RESPOSTA 
+                   WHERE id_pergunta = ?";
+    $stmt_opcoes = $conn->prepare($sql_opcoes);
+    $stmt_opcoes->bind_param("i", $pergunta['id_pergunta']);
+    $stmt_opcoes->execute();
+    $result_opcoes = $stmt_opcoes->get_result();
+    $opcoes_resposta[$pergunta['id_pergunta']] = $result_opcoes->fetch_all(MYSQLI_ASSOC);
+    $stmt_opcoes->close();
+}
+
+$stmt_nome_formulario->close();
 $stmt_perguntas->close();
 $conn->close();
 ?>
@@ -45,13 +75,13 @@ $conn->close();
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Responder Formulário - Form Generator</title>
-    <link rel="stylesheet" href="../../css/loginCadastro.css">
+    <title>Responder Formulário - <?php echo htmlspecialchars($nome_formulario); ?></title>
+    <link rel="stylesheet" href="../../css/responderFormulario.css">
 </head>
 <body>
 
 <section class="login-container">
-    <h1>Responder Formulário</h1>
+    <h1><?php echo htmlspecialchars($nome_formulario); ?></h1>
 
     <form class="login-form" action="processarRespostas.php" method="POST">
         <input type="hidden" name="id_formulario" value="<?php echo htmlspecialchars($id_formulario); ?>">
@@ -65,13 +95,21 @@ $conn->close();
                 <?php elseif ($pergunta['nm_tipo_pergunta'] === 'E-mail'): ?>
                     <input type="email" name="resposta[<?php echo $pergunta['id_pergunta']; ?>]" placeholder="Digite seu e-mail" required>
                 <?php elseif ($pergunta['nm_tipo_pergunta'] === 'Múltipla Escolha'): ?>
-                    <select name="resposta[<?php echo $pergunta['id_pergunta']; ?>]" required>
-                        <option value="Sim">Sim</option>
-                        <option value="Não">Não</option>
-                    </select>
+                    <?php foreach ($opcoes_resposta[$pergunta['id_pergunta']] ?? [] as $opcao): ?>
+                        <div class="opcao">
+                            <input type="checkbox" name="resposta[<?php echo $pergunta['id_pergunta']; ?>][]" 
+                                   value="<?php echo htmlspecialchars($opcao['id_resposta']); ?>">
+                            <?php echo htmlspecialchars($opcao['ds_resposta']); ?>
+                        </div>
+                    <?php endforeach; ?>
                 <?php elseif ($pergunta['nm_tipo_pergunta'] === 'Única Escolha'): ?>
-                    <input type="radio" name="resposta[<?php echo $pergunta['id_pergunta']; ?>]" value="Sim" required> Sim
-                    <input type="radio" name="resposta[<?php echo $pergunta['id_pergunta']; ?>]" value="Não"> Não
+                    <?php foreach ($opcoes_resposta[$pergunta['id_pergunta']] ?? [] as $opcao): ?>
+                        <div class="opcao">
+                            <input type="radio" name="resposta[<?php echo $pergunta['id_pergunta']; ?>]" 
+                                   value="<?php echo htmlspecialchars($opcao['id_resposta']); ?>" required>
+                            <?php echo htmlspecialchars($opcao['ds_resposta']); ?>
+                        </div>
+                    <?php endforeach; ?>
                 <?php elseif ($pergunta['nm_tipo_pergunta'] === 'Data'): ?>
                     <input type="date" name="resposta[<?php echo $pergunta['id_pergunta']; ?>]" required>
                 <?php elseif ($pergunta['nm_tipo_pergunta'] === 'Número'): ?>

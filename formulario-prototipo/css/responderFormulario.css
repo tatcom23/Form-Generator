@@ -1,75 +1,102 @@
 /* Estilo geral */
 body {
-    background-color: #0a0a0a;
-    color: #ffffff;
+    background-color: #0a0a0a; /* Fundo escuro */
+    color: #ffffff; /* Texto branco */
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
+    overflow-y: auto; /* Garante rolagem vertical */
 }
 
 /* Container principal */
 .login-container {
-    max-width: 500px;
-    margin: 50px auto;
-    background-color: #111111;
+    max-width: 600px;
+    margin: 20px auto; /* Centraliza o contêiner */
+    background-color: #111111; /* Fundo mais claro dentro do contêiner */
     padding: 30px;
     border-radius: 16px;
-    box-shadow: 0 0 10px #00ff66;
-    text-align: center;
+    box-shadow: 0 0 10px #00ff66; /* Sombra verde neon */
+    text-align: center; /* Centraliza elementos por padrão */
 }
 
 /* Título */
 h1 {
     font-size: 2rem;
-    color: #00ff66;
-    text-shadow: 0 0 6px #00ff66;
-    margin-bottom: 30px;
+    color: #00ff66; /* Verde neon para destaque */
+    text-shadow: 0 0 6px #00ff66; /* Sombra no texto */
+    margin-bottom: 30px; /* Espaçamento abaixo do título */
 }
 
 /* Perguntas */
-form p {
-    font-size: 1.1rem;
-    text-align: left;
-    margin-top: 20px;
-    color: #ffffff;
+label {
+    display: block;
+    margin-top: 15px;
+    font-size: 1rem;
+    color: #ffffff; /* Cor do texto */
+    font-weight: bold; /* Destaca os rótulos */
+    text-align: center; /* Centraliza as perguntas */
 }
 
-/* Inputs e Textareas */
+/* Inputs e selects */
 input[type="text"],
+input[type="email"],
+select,
 textarea {
-    width: 100%;
+    width: 95%;
     padding: 12px 15px;
-    margin-top: 10px;
+    margin-top: 8px;
     border: none;
     border-radius: 10px;
-    background-color: #1a1a1a;
-    color: #ffffff;
+    background-color: #1a1a1a; /* Fundo escuro para inputs */
+    color: #ffffff; /* Texto branco nos inputs */
     font-size: 1rem;
-    transition: 0.3s;
+    transition: 0.3s; /* Efeito suave ao focar */
+    text-align: left; /* Alinha o texto à esquerda dentro dos inputs */
 }
 
-input[type="text"]:focus,
-textarea:focus {
-    outline: none;
-    background-color: #222222;
-    box-shadow: 0 0 6px #00ff66;
+/* Opções de resposta */
+.opcao {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #1a1a1a; /* Fundo escuro para opções */
+    border-radius: 8px;
+    border: 1px solid #00ff66; /* Borda verde neon */
+    text-align: left; /* Alinha as opções de resposta à esquerda */
 }
 
-/* Botão Enviar */
-button[type="submit"] {
-    margin-top: 30px;
+/* Botões */
+.cta-btn {
+    display: inline-block;
     padding: 12px 25px;
-    background-color: #00ff66;
-    color: #0a0a0a;
+    background-color: #00ff66; /* Verde neon para botões */
+    color: #0a0a0a; /* Texto escuro nos botões */
     border: none;
     border-radius: 12px;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: 0.4s;
+    transition: 0.4s; /* Efeito suave ao passar o mouse */
+    margin-top: 15px; /* Espaçamento entre botões */
 }
 
-button[type="submit"]:hover {
-    background-color: #00e65c;
-    box-shadow: 0 0 10px #00ff66;
+.cta-btn:hover {
+    background-color: #00e65c; /* Verde mais escuro ao passar o mouse */
+    box-shadow: 0 0 10px #00ff66; /* Sombra verde neon */
+}
+
+/* Centralizar botões */
+button.cta-btn,
+a.cta-btn {
+    display: block;
+    margin: 0 auto; /* Centraliza os botões horizontalmente */
+    text-align: center; /* Garante que o texto do botão esteja centralizado */
+}
+
+/* Remover opção */
+.remover-opcao {
+    background-color: #dc3545; /* Vermelho para botões de remoção */
+}
+
+.remover-opcao:hover {
+    background-color: #a71d2a; /* Vermelho mais escuro ao passar o mouse */
 }

@@ -52,9 +52,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Redireciona para a página inicial com base no papel (admin ou usuário comum)
             if ($user_role === 'admin') {
-                header("Location: /form-generator/formulario-prototipo/pages/paginaHome/homeAdmin.php"); // Redireciona para a home do admin
+                header("Location: /formulario-prototipo/pages/paginaHome/homeAdmin.php"); // Redireciona para a home do admin
             } else {
-                header("Location: /form-generator/formulario-prototipo/pages/paginaHome/homeUsuario.php"); // Redireciona para a home do usuário
+                header("Location: /formulario-prototipo/pages/paginaHome/homeUsuario.php"); // Redireciona para a home do usuário
             }
             exit(); // Certifique-se de que o código não continue após o redirecionamento
         } else {
