@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+// Verifica se o usuário está logado
 if (!isset($_SESSION['id_usuario'])) {
     echo "<p>Você precisa estar logado para adicionar uma pergunta.</p>";
     exit;
@@ -69,12 +70,45 @@ try {
     // Confirma a transação
     $conn->commit();
 
-    echo "<h2>Pergunta adicionada com sucesso!</h2>";
-    echo "<p><a href='detalhesFormulario.php?id=$id_formulario'>Voltar para o formulário</a></p>";
+    // Redirecionamento com mensagem de sucesso
+    echo "
+    <!DOCTYPE html>
+    <html lang='pt-BR'>
+    <head>
+        <meta charset='UTF-8'>
+        <title>Sucesso</title>
+        <script>
+            alert('Pergunta adicionada com sucesso!');
+            window.location.href = 'detalhesFormulario.php?id=" . urlencode($id_formulario) . "';
+        </script>
+    </head>
+    <body>
+    </body>
+    </html>
+    ";
+    exit;
+
 } catch (Exception $e) {
     // Desfaz a transação em caso de erro
     $conn->rollback();
-    echo "<p>Ocorreu um erro ao adicionar a pergunta: " . $e->getMessage() . "</p>";
+
+    // Redirecionamento com mensagem de erro
+    echo "
+    <!DOCTYPE html>
+    <html lang='pt-BR'>
+    <head>
+        <meta charset='UTF-8'>
+        <title>Erro</title>
+        <script>
+            alert('Ocorreu um erro ao adicionar a pergunta: " . addslashes($e->getMessage()) . "');
+            window.location.href = 'detalhesFormulario.php?id=" . urlencode($id_formulario) . "';
+        </script>
+    </head>
+    <body>
+    </body>
+    </html>
+    ";
+    exit;
 }
 
 $stmt->close();

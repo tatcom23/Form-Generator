@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Adicionar Categoria - Form Generator</title>
-    <link rel="stylesheet" href="../../css/loginCadastro.css">
+    <link rel="stylesheet" href="../../css/responderFormulario.css">
 </head>
 <body>
 

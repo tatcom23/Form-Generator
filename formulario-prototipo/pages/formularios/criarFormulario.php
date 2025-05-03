@@ -12,7 +12,7 @@ if (!isset($_SESSION['id_usuario'])) {
 <head>
     <meta charset="UTF-8">
     <title>Criar Novo Formulário - Form Generator</title>
-    <link rel="stylesheet" href="../../css/loginCadastro.css">
+    <link rel="stylesheet" href="../../css/responderFormulario.css">
 </head>
 <body>
 
