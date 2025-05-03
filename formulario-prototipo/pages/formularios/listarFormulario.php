@@ -34,19 +34,20 @@ $conn->close();
     <meta charset="UTF-8">
     <title>Meus Formulários - Form Generator</title>
     <link rel="stylesheet" href="../../css/listarFormulario.css">
+    <script>
+        // Verifica se há uma mensagem na sessão e exibe um alert
+        window.onload = function () {
+            <?php if (isset($_SESSION['mensagem'])): ?>
+                alert("<?php echo addslashes($_SESSION['mensagem']); ?>");
+                <?php unset($_SESSION['mensagem']); // Limpa a mensagem após exibi-la ?>
+            <?php endif; ?>
+        };
+    </script>
 </head>
 <body>
 
 <section class="login-container">
     <h1>Meus Formulários</h1>
-
-    <?php
-    // Exibe a mensagem flash, se existir
-    if (isset($_SESSION['mensagem'])) {
-        echo "<p style='color: green; font-weight: bold;'>" . htmlspecialchars($_SESSION['mensagem']) . "</p>";
-        unset($_SESSION['mensagem']); // Limpa a mensagem após exibi-la
-    }
-    ?>
 
     <?php if (count($formularios) > 0): ?>
         <table border="1">
