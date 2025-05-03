@@ -33,7 +33,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <title>Meus Formulários - Form Generator</title>
-    <link rel="stylesheet" href="../../css/loginCadastro.css">
+    <link rel="stylesheet" href="../../css/listarFormulario.css">
 </head>
 <body>
 

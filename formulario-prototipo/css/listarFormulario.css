@@ -1,0 +1,147 @@
+/* Estilo Global */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0a0a0a;
+    color: white;
+    text-align: center;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #111;
+    box-shadow: 0 2px 10px rgba(0, 255, 0, 0.2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .logo {
+    font-size: 32px;
+    font-weight: bold;
+    color: lime;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+  
+  .logo:hover {
+    transform: scale(1.05);
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li a {
+    color: rgb(0, 255, 64);
+    text-decoration: none;
+    font-size: 18px;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  
+  /* Efeito underline animado no hover */
+  nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0%;
+    height: 2px;
+    background-color: #00ff00da;
+    transition: width 0.3s ease;
+  }
+  
+  nav ul li a:hover {
+    color: #2fff32;
+  }
+  
+  nav ul li a:hover::after {
+    width: 100%;
+  }
+  
+  /* Estilo para a página de "Formulários Criados" */
+  .login-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px;
+    background: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  }
+  
+  h1 {
+    font-size: 2em;
+    color: lime;
+    margin-bottom: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  table th, table td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid #444;
+  }
+  
+  table th {
+    background-color: #333;
+    color: #00ff00;
+    font-size: 1.1em;
+  }
+  
+  table td {
+    background-color: #222;
+    color: #ccc;
+  }
+  
+  table a {
+    color: #00ff00;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  table a:hover {
+    color: lime;
+  }
+  
+  /* Efeito de hover nas células da tabela */
+  table tr:hover {
+    background-color: #444;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    table {
+      font-size: 14px;
+    }
+  
+    table th, table td {
+      padding: 8px 10px;
+    }
+  
+    .login-container {
+      padding: 20px;
+    }
+  
+    h1 {
+      font-size: 1.5em;
+    }
+  }
+  

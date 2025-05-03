@@ -3,64 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Detalhes do Formulário - Form Generator</title>
-    <link rel="stylesheet" href="../../css/loginCadastro.css">
-    <style>
-        .login-container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-        input[type="text"], select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .cta-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-        .cta-btn:hover {
-            background-color: #0056b3;
-        }
-        .opcao {
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .remover-opcao {
-            background-color: #dc3545;
-        }
-        .remover-opcao:hover {
-            background-color: #a71d2a;
-        }
-    </style>
+    <link rel="stylesheet" href="../../css/detalhesFormulario.css">
+    
 </head>
 <body>
 
 <section class="login-container">
     <h1><?php echo htmlspecialchars($formulario['nm_formulario']); ?></h1>
 
-    <!-- Botão para Adicionar Categoria -->
     <p><a href="adicionarCategoria.php?id=<?php echo htmlspecialchars($id_formulario); ?>" class="cta-btn">Adicionar Categoria</a></p>
 
     <?php if (count($categorias) === 0): ?>
@@ -70,12 +20,10 @@
     <h2>Adicionar Pergunta</h2>
     <form class="login-form" id="form-adicionar-pergunta" action="processarAdicionarPergunta.php" method="POST">
         <input type="hidden" name="id_formulario" value="<?php echo htmlspecialchars($formulario['id_formulario']); ?>">
-        
-        <!-- Texto da Pergunta -->
+
         <label for="ds_pergunta">Texto da Pergunta:</label>
         <input type="text" name="ds_pergunta" placeholder="Digite a pergunta" required>
-        
-        <!-- Categoria -->
+
         <label for="categoria">Categoria:</label>
         <select name="id_categoria" required>
             <option value="" disabled selected>Categoria</option>
@@ -85,8 +33,7 @@
                 </option>
             <?php endforeach; ?>
         </select>
-        
-        <!-- Tipo de Pergunta -->
+
         <label for="tipo_pergunta">Tipo de Pergunta:</label>
         <select name="id_tipo_pergunta" id="tipo-pergunta" required>
             <option value="" disabled selected>Tipo de Resposta</option>
@@ -96,8 +43,7 @@
                 </option>
             <?php endforeach; ?>
         </select>
-        
-        <!-- Campo Dinâmico para Opções de Resposta -->
+
         <div id="opcoes-resposta" style="display: none;">
             <h3>Opções de Resposta</h3>
             <div id="container-opcoes">
@@ -110,7 +56,7 @@
             </div>
             <button type="button" id="adicionar-opcao" class="cta-btn">+ Adicionar Opção</button>
         </div>
-        
+
         <button type="submit" class="cta-btn">Adicionar Pergunta</button>
     </form>
 
@@ -118,19 +64,22 @@
 </section>
 
 <script>
-    // Mostrar/ocultar campos com base no tipo de pergunta
-    document.getElementById('tipo-pergunta').addEventListener('change', function () {
+    // Mostrar/ocultar opções de resposta ao alterar o tipo
+        document.getElementById('tipo-pergunta').addEventListener('change', function () {
         const tipoPergunta = this.value;
         const opcoesResposta = document.getElementById('opcoes-resposta');
-        // Mostrar opções de resposta apenas para tipos específicos
-        if (tipoPergunta === '2' || tipoPergunta === '3') { // IDs para Múltipla Escolha e Única Escolha
+        const opcoesInputs = opcoesResposta.querySelectorAll('input[name="opcoes[]"]');
+
+        if (tipoPergunta === '3' || tipoPergunta === '4') {
             opcoesResposta.style.display = 'block';
+            opcoesInputs.forEach(input => input.setAttribute('required', 'required'));
         } else {
             opcoesResposta.style.display = 'none';
+            opcoesInputs.forEach(input => input.removeAttribute('required'));
         }
     });
 
-    // Adicionar/remover campos dinâmicos para opções de resposta
+    // Botão de adicionar opção principal
     document.getElementById('adicionar-opcao').addEventListener('click', function () {
         const containerOpcoes = document.getElementById('container-opcoes');
         const novaOpcao = document.createElement('div');
@@ -142,13 +91,10 @@
             <button type="button" class="remover-opcao cta-btn">Remover</button>
         `;
         containerOpcoes.appendChild(novaOpcao);
-        // Adicionar evento para remover a opção
-        novaOpcao.querySelector('.remover-opcao').addEventListener('click', function () {
-            containerOpcoes.removeChild(novaOpcao);
-        });
+        novaOpcao.querySelector('.remover-opcao').addEventListener('click', () => novaOpcao.remove());
     });
 
-    // Adicionar perguntas encadeadas
+    // Perguntas encadeadas dinâmicas
     document.addEventListener('click', function (event) {
         if (event.target.classList.contains('adicionar-pergunta-encadeada')) {
             const opcao = event.target.closest('.opcao');
@@ -157,9 +103,9 @@
                     <hr>
                     <h4>Nova Pergunta Encadeada</h4>
                     <label>Texto da Pergunta:</label>
-                    <input type="text" name="nova_pergunta[]" placeholder="Digite a nova pergunta">
+                    <input type="text" name="nova_pergunta[]" placeholder="Digite a nova pergunta" required>
                     <label>Tipo de Resposta:</label>
-                    <select name="tipo_pergunta_encadeada[]">
+                    <select name="tipo_pergunta_encadeada[]" class="tipo-pergunta-encadeada" required>
                         <option value="" disabled selected>Tipo de Resposta</option>
                         <?php foreach ($tipos_pergunta as $tipo): ?>
                             <option value="<?php echo $tipo['id_tipo_pergunta']; ?>">
@@ -176,42 +122,35 @@
                 </div>
             `;
             opcao.insertAdjacentHTML('afterend', novaPerguntaHTML);
-            // Adicionar evento para remover a nova pergunta
             const novaPergunta = opcao.nextElementSibling;
-            novaPergunta.querySelector('.remover-nova-pergunta').addEventListener('click', function () {
-                novaPergunta.remove();
-            });
-            // Mostrar/ocultar opções de resposta para perguntas encadeadas
-            const tipoPerguntaEncadeada = novaPergunta.querySelector('select[name="tipo_pergunta_encadeada[]"]');
+
+            // Remover pergunta encadeada
+            novaPergunta.querySelector('.remover-nova-pergunta').addEventListener('click', () => novaPergunta.remove());
+
+            // Mostrar opções encadeadas dependendo do tipo
+            const selectTipo = novaPergunta.querySelector('.tipo-pergunta-encadeada');
             const opcoesEncadeadas = novaPergunta.querySelector('.opcoes-encadeadas');
-            tipoPerguntaEncadeada.addEventListener('change', function () {
-                const tipoSelecionado = this.value;
-                if (tipoSelecionado === '2' || tipoSelecionado === '3') { // IDs para Múltipla Escolha e Única Escolha
-                    opcoesEncadeadas.style.display = 'block';
-                } else {
-                    opcoesEncadeadas.style.display = 'none';
-                }
+            selectTipo.addEventListener('change', function () {
+                opcoesEncadeadas.style.display = (this.value === '3' || this.value === '4') ? 'block' : 'none';
             });
-            // Adicionar opções dinâmicas para perguntas encadeadas
+
+            // Adicionar opção encadeada
             novaPergunta.querySelector('.adicionar-opcao-encadeada').addEventListener('click', function () {
-                const containerOpcoesEncadeadas = novaPergunta.querySelector('.container-opcoes-encadeadas');
-                const novaOpcaoEncadeada = document.createElement('div');
-                novaOpcaoEncadeada.className = 'opcao';
-                novaOpcaoEncadeada.innerHTML = `
+                const container = novaPergunta.querySelector('.container-opcoes-encadeadas');
+                const novaOpcao = document.createElement('div');
+                novaOpcao.className = 'opcao';
+                novaOpcao.innerHTML = `
                     <label>Opção de Resposta:</label>
                     <input type="text" name="opcoes_encadeadas[]" placeholder="Ex.: Sim" required>
                     <button type="button" class="remover-opcao-encadeada cta-btn">Remover</button>
                 `;
-                containerOpcoesEncadeadas.appendChild(novaOpcaoEncadeada);
-                // Adicionar evento para remover a opção encadeada
-                novaOpcaoEncadeada.querySelector('.remover-opcao-encadeada').addEventListener('click', function () {
-                    containerOpcoesEncadeadas.removeChild(novaOpcaoEncadeada);
-                });
+                container.appendChild(novaOpcao);
+                novaOpcao.querySelector('.remover-opcao-encadeada').addEventListener('click', () => novaOpcao.remove());
             });
         }
     });
 
-    // Verifica se há uma mensagem flash e exibe um alert
+    // Mensagem de sessão
     <?php if (isset($_SESSION['mensagem'])): ?>
         alert("<?php echo addslashes($_SESSION['mensagem']); ?>");
         <?php unset($_SESSION['mensagem']); ?>
