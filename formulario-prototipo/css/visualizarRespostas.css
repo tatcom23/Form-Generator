@@ -1,102 +1,119 @@
-/* Estilo geral */
-body {
-    background-color: #0a0a0a; /* Fundo escuro */
-    color: #ffffff; /* Texto branco */
-    font-family: 'Poppins', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Reset */
+* {
     margin: 0;
     padding: 0;
-    overflow-y: auto; /* Garante rolagem vertical */
+    box-sizing: border-box;
+}
+
+/* Estilo base */
+body {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    overflow-y: auto;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
 /* Container principal */
 .login-container {
     max-width: 800px;
-    margin: 20px auto; /* Centraliza o contêiner */
-    background-color: #111111; /* Fundo mais claro dentro do contêiner */
+    width: 100%;
+    background-color: #111;
     padding: 30px;
     border-radius: 16px;
-    box-shadow: 0 0 10px #00ff66; /* Sombra verde neon */
-    text-align: center; /* Centraliza elementos por padrão */
+    box-shadow: 0 0 10px rgba(0, 255, 64, 0.3);
+    text-align: center;
 }
 
-/* Título */
+/* Título principal */
 h1 {
     font-size: 2rem;
-    color: #00ff66; /* Verde neon para destaque */
-    text-shadow: 0 0 6px #00ff66; /* Sombra no texto */
-    margin-bottom: 30px; /* Espaçamento abaixo do título */
+    color: #00ff00da;
+    text-shadow: 0 0 3px #00ff00da;
+    margin-bottom: 30px;
 }
 
-/* Subtítulo (nome do usuário e data/hora) */
-h2 {
-    font-size: 1.5rem;
-    color: #00ff66; /* Verde neon para destaque */
+/* Subtítulo da resposta */
+.resposta-sessao h2 {
+    font-size: 1.2rem;
+    color: #00ff00;
     margin-top: 20px;
+}
+
+/* Data e hora */
+.resposta-sessao p {
+    font-size: 0.95rem;
+    color: #ccc;
     margin-bottom: 10px;
 }
 
-p {
-    font-size: 1rem;
-    color: #ffffff; /* Texto branco */
-    margin: 5px 0;
-}
-
-/* Linha divisória */
-hr {
+/* Separador */
+.resposta-sessao hr {
     border: none;
-    border-top: 1px solid #00ff66; /* Linha verde neon */
-    margin: 20px 0;
+    border-top: 1px solid rgba(0, 255, 64, 0.3);
+    margin: 10px 0 20px;
+    margin-bottom: 40px;
 }
 
-/* Perguntas e Respostas */
+/* Perguntas e respostas */
 .pergunta-resposta {
-    margin: 15px 0;
-    text-align: left; /* Alinha perguntas e respostas à esquerda */
-    padding: 10px;
-    background-color: #1a1a1a; /* Fundo escuro para perguntas e respostas */
-    border-radius: 8px;
-    border: 1px solid #00ff66; /* Borda verde neon */
+    background-color: #1a1a1a;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    text-align: left;
+    box-shadow: 0 0 5px rgba(0, 255, 64, 0.1);
+    transition: 0.3s;
 }
 
-/* Perguntas */
-.pergunta-resposta strong {
-    font-size: 1rem;
-    color: #00ff66; /* Verde neon para destaque */
-    font-weight: bold;
+.pergunta-resposta:hover {
+    box-shadow: 0 0 10px rgba(0, 255, 64, 0.3);
 }
 
-/* Respostas */
-.pergunta-resposta span {
-    font-size: 1rem;
-    color: #ffffff; /* Texto branco */
-    display: block;
-    margin-top: 5px;
-}
-
-/* Botões */
+/* Botão */
 .cta-btn {
-    display: inline-block;
     padding: 12px 25px;
-    background-color: #00ff66; /* Verde neon para botões */
-    color: #0a0a0a; /* Texto escuro nos botões */
-    border: none;
+    background-color: transparent;
+    color: #00ff00da;
+    border: 2px solid #00ff00da;
     border-radius: 12px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: 0.4s; /* Efeito suave ao passar o mouse */
-    margin-top: 15px; /* Espaçamento entre botões */
+    transition: 0.4s;
+    text-shadow: 0 0 2px #00ff00da;
+    width: 60%;
 }
 
 .cta-btn:hover {
-    background-color: #00e65c; /* Verde mais escuro ao passar o mouse */
-    box-shadow: 0 0 10px #00ff66; /* Sombra verde neon */
+    background-color: #00ff00da;
+    color: #000;
+    box-shadow: 0 0 10px #00ff00;
+    margin-top: 60px;
 }
 
-/* Centralizar botões */
-button.cta-btn,
-a.cta-btn {
-    display: block;
-    margin: 0 auto; /* Centraliza os botões horizontalmente */
-    text-align: center; /* Garante que o texto do botão esteja centralizado */
+/* Responsivo */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .resposta-sessao h2 {
+        font-size: 1rem;
+    }
+
+    .cta-btn {
+        font-size: 0.95rem;
+        width: 100%;
+    }
 }

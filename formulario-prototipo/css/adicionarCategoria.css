@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Estilo geral */
+body {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+}
+
+/* Container principal */
+.login-container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #111111;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0, 255, 64, 0.3);
+    text-align: center;
+}
+
+/* Título */
+h1 {
+    font-size: 2rem;
+    color: #00ff00da;
+    text-shadow: 0 0 3px #00ff00da;
+    margin-bottom: 30px;
+}
+
+/* Formulário */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Input de texto */
+input[type="text"] {
+    width: 95%;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-size: 1rem;
+    transition: 0.3s;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 64, 0.3);
+    border: 1px solid #00ff00da;
+}
+
+/* Botões principais */
+.cta-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: transparent;
+    color: #00ff00da;
+    border: 2px solid #00ff00da;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.4s;
+    text-shadow: 0 0 2px #00ff00da;
+    text-decoration: none;
+}
+
+/* Hover principal */
+.cta-btn:hover {
+    background-color: #84ff80df;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0, 255, 64, 0.571);
+}
+
+/* Centralizar botões */
+button.cta-btn,
+a.cta-btn {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Botão de Voltar */
+.voltar-btn {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: #00ff00da;
+    border: 2px solid #00ff00da;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.4s;
+    text-shadow: 0 0 2px #00ff00da;
+    text-decoration: none;
+    display: inline-block;
+    margin: 20px auto;
+    text-align: center;
+    max-width: 200px;  /* Limita a largura do botão */
+    width: 100%; /* Garante que o botão ocupe toda a largura possível dentro do container */
+}
+
+/* Hover do botão de Voltar */
+.voltar-btn:hover {
+    background-color: #84ff80df;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0, 255, 64, 0.571);
+    transform: scale(1.05); /* levemente aumentado no hover */
+}
+
+/* Tamanho reduzido opcional */
+.voltar-btn.smaller {
+    font-size: 0.9rem;
+    padding: 8px 18px;
+    border-radius: 10px;
+}

@@ -1,115 +1,194 @@
-/* Reset básico */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* Estilo base */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #0a0a0a;
-    color: white;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #0a0a0a;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 /* Container principal */
 .login-container {
-    background-color: #111;
-    padding: 40px 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 255, 0, 0.2);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
+  max-width: 480px;
+  width: 100%;
+  background-color: #111;
+  padding: 35px 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 255, 64, 0.25);
+  text-align: center;
 }
 
+/* Título */
 .login-container h1 {
-    font-size: 28px;
-    color: lime;
-    margin-bottom: 10px;
+  font-size: 2rem;
+  color: #00ff00da;
+  text-shadow: 0 0 4px #00ff00da;
+  margin-bottom: 8px;
 }
 
+/* Subtítulo */
 .login-container p {
-    font-size: 16px;
-    color: #aaa;
-    margin-bottom: 30px;
+  font-size: 1rem;
+  color: #cccccc;
+  margin-bottom: 24px;
 }
 
-/* Formulário */
-.login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+/* Inputs base */
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid rgba(0, 255, 64, 0.25);
+  border-radius: 10px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-size: 1rem;
+  margin-bottom: 18px;
+  transition: all 0.3s ease;
 }
 
-.login-form input {
-    padding: 12px 15px;
-    font-size: 16px;
-    border: 2px solid #00ff00da;
-    border-radius: 8px;
-    background-color: #0a0a0a;
-    color: white;
-    transition: all 0.3s;
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+  outline: none;
+  border-color: #00ff00;
+  box-shadow: 0 0 6px #00ff00a0;
 }
 
-.login-form input:focus {
-    border-color: lime;
-    outline: none;
-    background-color: #111;
+/* Centralizar radio buttons */
+.role-selection {
+  margin: 20px 0;
+  display: flex;
+  gap: 30px;
+  justify-content: center; /* centraliza */
 }
 
-/* Botão principal */
+/* Estilo limpo para radio + label */
+.role-selection label {
+  color: #ccc;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.role-selection input[type="radio"] {
+  accent-color: #00ff00;
+  width: 16px;
+  height: 16px;
+}
+
+.senha-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.senha-container input {
+  width: 100%;
+  padding-right: 60px; /* espaço pro ícone */
+  background-color: #1c1c1c;
+  border: 2px solid #00ff00;
+  border-radius: 8px;
+  padding: 12px;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.mostrar-senha-btn {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mostrar-senha-btn i {
+  color: #00ff00;
+  font-size: 18px;
+}
+
+.role-label:hover,
+.role-label input:checked + span {
+  border-color: #00ff00;
+  box-shadow: 0 0 8px #00ff00;
+  color: #00ff00da;
+}
+
+/* Botão de ação */
 .cta-btn {
-    background: linear-gradient(45deg, #00FF00, #00CC00);
-    color: white;
-    border: none;
-    padding: 14px;
-    font-size: 18px;
-    cursor: pointer;
-    font-weight: bolder;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 255, 0, 0.2);
-    transition: background 0.3s, transform 0.3s;
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 12px;
+  background-color: transparent;
+  color: #00ff00da;
+  border: 2px solid #00ff00da;
+  text-shadow: 0 0 2px #00ff00da;
+  box-shadow: 0 4px 6px rgba(0, 255, 0, 0.2);
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 
 .cta-btn:hover {
-    background: #2fff32;
-    transform: scale(1.05);
-    font-weight: bold;
+  background-color: #00ff00da;
+  color: #000;
+  box-shadow: 0 0 12px #00ff00;
 }
 
-/* Link de criar conta/login */
+/* Links */
 .create-account {
-    font-size: 14px;
-    color: #777;
-    margin-top: 20px;
+  margin-top: 20px;
+  font-size: 0.95rem;
 }
 
 .create-account a {
-    color: #00ff00da;
-    text-decoration: none;
-    font-weight: bold;
+  color: #00ff00da;
+  text-decoration: none;
 }
 
 .create-account a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* Responsividade */
 @media (max-width: 480px) {
-    .login-container {
-        padding: 30px 20px;
-    }
+  .login-container {
+    padding: 25px 20px;
+  }
 
-    .login-container h1 {
-        font-size: 24px;
-    }
+  h1 {
+    font-size: 1.6rem;
+  }
 
-    .login-form input,
-    .cta-btn {
-        font-size: 16px;
-    }
+  .cta-btn {
+    font-size: 0.95rem;
+  }
+
+  .role-selection {
+    flex-direction: column;
+  }
 }

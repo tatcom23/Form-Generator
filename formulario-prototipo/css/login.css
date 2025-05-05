@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo base */
+body {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    overflow-y: auto;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Container principal */
+.login-container {
+    max-width: 400px; /* Tamanho reduzido */
+    width: 100%;
+    background-color: #111;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0, 255, 64, 0.3);
+    text-align: center;
+}
+
+/* Título */
+.login-container h1 {
+    font-size: 1.8rem;
+    color: #00ff00da;
+    text-shadow: 0 0 4px #00ff00da;
+    margin-bottom: 10px;
+}
+
+/* Subtítulo */
+.login-container p {
+    font-size: 1rem;
+    color: #cccccc;
+    margin-bottom: 20px;
+}
+
+/* Inputs base */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid rgba(0, 255, 64, 0.3);
+    border-radius: 10px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+/* Focus nos inputs */
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #00ff00;
+    box-shadow: 0 0 6px #00ff00a0;
+}
+
+/* Campo de senha com botão embutido */
+.senha-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.senha-container input {
+    width: 100%;
+    padding-right: 30px; /* Ajustado para o ícone */
+}
+
+/* Botão mostrar/ocultar dentro do input */
+.mostrar-senha-btn {
+    position: absolute;
+    top: 50%;
+    right: 10px; /* Ajuste da posição à direita */
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.mostrar-senha-btn i {
+    color: #00ff00da;
+    font-size: 14px; /* Ícone menor */
+}
+
+/* Botão principal */
+.cta-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 12px;
+    background-color: transparent;
+    color: #00ff00da;
+    border: 2px solid #00ff00da;
+    text-shadow: 0 0 2px #00ff00da;
+    box-shadow: 0 4px 6px rgba(0, 255, 0, 0.2);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.cta-btn:hover {
+    background-color: #00ff00da;
+    color: #000;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+/* Links adicionais */
+.forgot-password,
+.create-account {
+    margin-top: 15px;
+    font-size: 0.95rem;
+}
+
+.forgot-password a,
+.create-account a {
+    color: #00ff00da;
+    text-decoration: none;
+}
+
+.forgot-password a:hover,
+.create-account a:hover {
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .cta-btn {
+        font-size: 0.95rem;
+    }
+}

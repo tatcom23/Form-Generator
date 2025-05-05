@@ -1,103 +1,156 @@
-/* Estilo geral */
-body {
-    background-color: #0a0a0a; /* Fundo escuro */
-    color: #ffffff; /* Texto branco */
-    font-family: 'Poppins', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Reset */
+* {
     margin: 0;
     padding: 0;
-    overflow-y: auto; /* Garante rolagem vertical */
+    box-sizing: border-box;
+}
+
+/* Base */
+body {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    overflow-y: auto;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
 /* Container principal */
 .login-container {
-    max-width: 600px;
-    margin: 20px auto; /* Centraliza o contêiner */
-    background-color: #111111; /* Fundo mais claro dentro do contêiner */
+    max-width: 700px;
+    width: 100%;
+    background-color: #111;
     padding: 30px;
     border-radius: 16px;
-    box-shadow: 0 0 10px #00ff66; /* Sombra verde neon */
-    text-align: center; /* Centraliza elementos por padrão */
+    box-shadow: 0 0 10px rgba(0, 255, 64, 0.3);
+    text-align: center;
 }
 
 /* Título */
 h1 {
     font-size: 2rem;
-    color: #00ff66; /* Verde neon para destaque */
-    text-shadow: 0 0 6px #00ff66; /* Sombra no texto */
-    margin-bottom: 30px; /* Espaçamento abaixo do título */
+    color: #00ff00da;
+    text-shadow: 0 0 3px #00ff00da;
+    margin-bottom: 30px;
 }
 
-/* Perguntas */
+/* Labels e campos */
 label {
     display: block;
+    text-align: left;
     margin-top: 15px;
+    font-weight: bold;
     font-size: 1rem;
-    color: #ffffff; /* Cor do texto */
-    font-weight: bold; /* Destaca os rótulos */
-    text-align: center; /* Centraliza as perguntas */
+    color: #ccc;
 }
 
-/* Inputs e selects */
+/* Estilo dos blocos de pergunta */
+.login-form > div {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+/* Inputs gerais */
 input[type="text"],
 input[type="email"],
 input[type="date"],
+input[type="number"],
 select,
 textarea {
-    width: 95%;
+    width: 100%;
     padding: 12px 15px;
-    margin-top: 8px;
-    border: none;
+    border: 2px solid rgba(0, 255, 64, 0.3);
     border-radius: 10px;
-    background-color: #1a1a1a; /* Fundo escuro para inputs */
-    color: #ffffff; /* Texto branco nos inputs */
+    background-color: #1a1a1a;
+    color: #ffffff;
     font-size: 1rem;
-    transition: 0.3s; /* Efeito suave ao focar */
-    text-align: left; /* Alinha o texto à esquerda dentro dos inputs */
+    margin-top: 10px;
+    transition: all 0.3s;
 }
 
-/* Opções de resposta */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #00ff00;
+    box-shadow: 0 0 6px #00ff00a0;
+}
+
+/* Textarea específico */
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Data input */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(60%) sepia(100%) saturate(1000%) hue-rotate(80deg) brightness(1.2);
+    cursor: pointer;
+}
+
+/* Opções de múltipla/única escolha */
 .opcao {
-    margin-top: 15px;
-    padding: 10px;
-    background-color: #1a1a1a; /* Fundo escuro para opções */
-    border-radius: 8px;
-    border: 1px solid #00ff66; /* Borda verde neon */
-    text-align: left; /* Alinha as opções de resposta à esquerda */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: #ccc;
 }
 
-/* Botões */
+/* Inputs de escolha */
+.opcao input[type="checkbox"],
+.opcao input[type="radio"] {
+    accent-color: #00ff00;
+    transform: scale(1.1);
+}
+
+/* Botão principal */
 .cta-btn {
-    display: inline-block;
     padding: 12px 25px;
-    background-color: #00ff66; /* Verde neon para botões */
-    color: #0a0a0a; /* Texto escuro nos botões */
-    border: none;
+    background-color: transparent;
+    color: #00ff00da;
+    border: 2px solid #00ff00da;
     border-radius: 12px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: 0.4s; /* Efeito suave ao passar o mouse */
-    margin-top: 15px; /* Espaçamento entre botões */
+    transition: 0.4s;
+    margin-top: 15px;
+    text-shadow: 0 0 2px #00ff00da;
+    width: 40%;
 }
 
 .cta-btn:hover {
-    background-color: #00e65c; /* Verde mais escuro ao passar o mouse */
-    box-shadow: 0 0 10px #00ff66; /* Sombra verde neon */
+    background-color: #00ff00da;
+    color: #000;
+    box-shadow: 0 0 10px #00ff00;
 }
 
-/* Centralizar botões */
-button.cta-btn,
-a.cta-btn {
-    display: block;
-    margin: 0 auto; /* Centraliza os botões horizontalmente */
-    text-align: center; /* Garante que o texto do botão esteja centralizado */
+/* Botão de voltar */
+.login-container p a.cta-btn {
+    width: auto;
+    display: inline-block;
+    margin-top: 30px;
 }
 
-/* Remover opção */
-.remover-opcao {
-    background-color: #dc3545; /* Vermelho para botões de remoção */
-}
+/* Responsividade */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 20px;
+    }
 
-.remover-opcao:hover {
-    background-color: #a71d2a; /* Vermelho mais escuro ao passar o mouse */
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .cta-btn {
+        font-size: 0.95rem;
+        width: 100%;
+    }
 }

@@ -1,4 +1,5 @@
 <?php 
+ob_start(); // Garante que o header() funcione corretamente mesmo que algo tenha sido enviado antes
 session_start(); // Inicia a sessão
 
 // Exibe erros para depuração
@@ -46,24 +47,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verifica se a senha está correta
         if (password_verify($cd_senha_usuario, $senha_hash)) {
             // Armazena as informações do usuário na sessão
-            $_SESSION['user_id'] = $id_usuario;
+            $_SESSION['id_usuario'] = $id_usuario;
             $_SESSION['user_name'] = $nm_usuario;
             $_SESSION['user_role'] = $user_role;
 
             // Redireciona para a página inicial com base no papel (admin ou usuário comum)
             if ($user_role === 'admin') {
-                header("Location: /formulario-prototipo/pages/paginaHome/homeAdmin.php"); // Redireciona para a home do admin
+                header("Location: ../paginaHome/homeAdmin.php"); 
             } else {
-                header("Location: /formulario-prototipo/pages/paginaHome/homeUsuario.php"); // Redireciona para a home do usuário
+                header("Location: ../paginaHome/homeUsuario.php");
             }
-            exit(); // Certifique-se de que o código não continue após o redirecionamento
+            exit();
         } else {
-            echo "Senha incorreta.";
+            header("Location: login.php?erro=1");
+            exit();
         }
-    } else {
-        echo "CPF não encontrado.";
     }
-
     // Fecha a declaração e a conexão
     $stmt->close();
     $conn->close();

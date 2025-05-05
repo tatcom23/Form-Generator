@@ -1,6 +1,6 @@
 <?php
 session_start();
 session_destroy();
-header("Location: /formulario-prototipo/pages/login/login.php");
+header("Location: ../login/login.php");
 exit();
 ?>

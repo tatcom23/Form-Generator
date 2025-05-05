@@ -1,62 +1,96 @@
 <?php 
 session_start();
 
-// Simula dados do usuário
-$user_id = $_SESSION['user_id'] ?? 1;
-$user_name = $_SESSION['user_name'] ?? 'Usuário Exemplo';
+// Garante que o usuário seja do tipo 'usuario'
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'usuario') {
+    header("Location: /Form-Generator/formulario-prototipo/pages/login/login.php");
+    exit();
+}
 
-// Simula formulários abertos
-$formularios_disponiveis = [
-    [
-        'id_formulario' => 3,
-        'nome_formulario' => 'Avaliação de Evento',
-        'descricao_formulario' => 'Dê sua opinião sobre o evento que participou.'
-    ],
-    [
-        'id_formulario' => 4,
-        'nome_formulario' => 'Cadastro de Habilidades',
-        'descricao_formulario' => 'Informe suas principais habilidades técnicas.'
-    ]
-];
+// Verifica se o id do usuário existe
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: /Form-Generator/formulario-prototipo/pages/login/login.php");
+    exit();
+}
+
+$user_name = $_SESSION['user_name'];
+$id_usuario = $_SESSION['id_usuario'];
+
+
+// Conexão com o banco
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "formulario_generator";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Erro de conexão: " . $conn->connect_error);
+}
+
+
+// Buscar formulários do usuário atual
+$sql = "SELECT id_formulario, nm_formulario, dt_criacao_formulario FROM FORMULARIO";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$formularios = [];
+while ($row = $result->fetch_assoc()) {
+    $formularios[] = $row;
+}
+
+$stmt->close();
+$conn->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <title>Home - Formulários Disponíveis</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Formulários Disponíveis</title>
     <!-- Link para o arquivo CSS -->
-    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/homeUsuario.css">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <a href="home.php" class="logo">Painel Usuário</a>
+
+<header>        
+    <div class="container">
+            <a href="homeUsuario.php" class="logo">Painel Usuário</a>
             <nav>
                 <ul>
-                    <li><a href="homeUsuario.php">Home</a></li>
-                    <li><a href="/formulario-prototipo/pages/formularios/responderFormulario.php">Responder Formulários</a></li>
+                    <li><a href="../formularios/responderFormulario.php">Responder Formulário</a></li>
                     <li><a href="logout.php">Sair</a></li>
                 </ul>
             </nav>
-        </div>
-    </header>
-
-    <div class="hero">
-        <h1>Bem-vindo, <?php echo htmlspecialchars($user_name); ?>!</h1>
-        <h2>Formulários Disponíveis</h2>
     </div>
+</header>
 
+<div class="hero">
+    <h1>Bem-vindo, <?php echo ucwords(strtolower($user_name)); ?>!</h1>
+</div>
+
+<div class="container">
     <div id="form-list">
-        <?php if (!empty($formularios_disponiveis)) : ?>
-            <?php foreach ($formularios_disponiveis as $form) : ?>
+        <h2>Formulários Disponíveis</h2>
+
+        <?php if (!empty($formularios)) : ?>
+            <?php foreach ($formularios as $form) : ?>
                 <div class="form-item">
-                    <strong><?php echo htmlspecialchars($form['nome_formulario']); ?></strong><br>
-                    <p><?php echo htmlspecialchars($form['descricao_formulario']); ?></p>
-                    <a href="responder_formulario.php?id=<?php echo $form['id_formulario']; ?>">Responder Formulário</a>
+                    <strong>Formulário: <?php echo htmlspecialchars($form['nm_formulario']); ?></strong><br>
+                    <?php 
+                        $data_formatada = date('d/m/Y H:i', strtotime($form['dt_criacao_formulario']));
+                        echo "Criado em: " . htmlspecialchars($data_formatada);
+                    ?>
+                    <div class="form-actions">
+                    <a href="responderFormulario.php?id=<?php echo $form['id_formulario']; ?>">Responder Formulário</a>
+                    </div>
                 </div><br>
-            <?php endforeach; ?>
+                    
+        <?php endforeach; ?>
         <?php else : ?>
             <p>Não há formulários disponíveis no momento.</p>
         <?php endif; ?>
@@ -67,3 +101,4 @@ $formularios_disponiveis = [
     </footer>
 </body>
 </html>
+
