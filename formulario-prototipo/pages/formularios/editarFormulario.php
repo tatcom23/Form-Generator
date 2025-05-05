@@ -51,7 +51,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <title>Editar Formulário - Form Generator</title>
-    <link rel="stylesheet" href="../../css/loginCadastro.css">
+    <link rel="stylesheet" href="../../css/editarFormulario.css">
 </head>
 <body>
 
@@ -64,7 +64,7 @@ $conn->close();
         <input type="date" name="dt_inicio_formulario" placeholder="Data de Início" value="<?php echo htmlspecialchars($formulario['dt_inicio_formulario']); ?>" required>
         <input type="date" name="dt_fim_formulario" placeholder="Data de Fim" value="<?php echo htmlspecialchars($formulario['dt_fim_formulario']); ?>" required>
 
-        <button type="submit" class="cta-btn">Salvar Alterações</button>
+        <button type="submit" class="cta-btn">Salvar alterações</button>
     </form>
 
 </section>

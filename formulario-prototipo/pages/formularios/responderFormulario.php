@@ -122,7 +122,7 @@ $conn->close();
         <button type="submit" class="cta-btn">Enviar Respostas</button>
     </form>
 
-    <p><a href="listarFormulario.php" class="cta-btn">Voltar para Meus Formulários</a></p>
+    <p><a href="../paginaHome/homeUsuario.php" class="cta-btn">🏠 Página Inicial</a></p>
 </section>
 
 </body>

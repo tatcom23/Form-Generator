@@ -3,28 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Detalhes do Formulário - Form Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../../css/detalhesFormulario.css">
-    
 </head>
 <body>
 
 <section class="login-container">
-    <h1><?php echo htmlspecialchars($formulario['nm_formulario']); ?></h1>
+    <h1 class="titulo-principal">Adicionar Pergunta</h1>
+    <h2 class="nome-formulario">Formulário: <?php echo htmlspecialchars($formulario['nm_formulario']); ?></h2>
 
-    <p><a href="adicionarCategoria.php?id=<?php echo htmlspecialchars($id_formulario); ?>" class="cta-btn">Adicionar Categoria</a></p>
+    <p>
+    <a href="adicionarCategoria.php?id=<?php echo $formulario['id_formulario']; ?>" class="cta-btn">
+        <i class="fas fa-plus"></i> Adicionar Categoria
+    </a>
+    </p>
 
     <?php if (count($categorias) === 0): ?>
         <p>Nenhuma categoria cadastrada.</p>
     <?php endif; ?>
-
-    <h2>Adicionar Pergunta</h2>
+    
     <form class="login-form" id="form-adicionar-pergunta" action="processarAdicionarPergunta.php" method="POST">
-        <input type="hidden" name="id_formulario" value="<?php echo htmlspecialchars($formulario['id_formulario']); ?>">
+    <input type="hidden" name="id_formulario" value="<?php echo htmlspecialchars($formulario['id_formulario']); ?>">
 
-        <label for="ds_pergunta">Texto da Pergunta:</label>
+        <label for="ds_pergunta">Texto da Pergunta</label>
         <input type="text" name="ds_pergunta" placeholder="Digite a pergunta" required>
 
-        <label for="categoria">Categoria:</label>
+         <label for="categoria">Categoria</label>
         <select name="id_categoria" required>
             <option value="" disabled selected>Categoria</option>
             <?php foreach ($categorias as $categoria): ?>
@@ -34,7 +38,7 @@
             <?php endforeach; ?>
         </select>
 
-        <label for="tipo_pergunta">Tipo de Pergunta:</label>
+        <label for="tipo_pergunta">Tipo de Pergunta</label>
         <select name="id_tipo_pergunta" id="tipo-pergunta" required>
             <option value="" disabled selected>Tipo de Resposta</option>
             <?php foreach ($tipos_pergunta as $tipo): ?>
@@ -60,12 +64,14 @@
         <button type="submit" class="cta-btn">Adicionar Pergunta</button>
     </form>
 
-    <p><a href="listarFormulario.php" class="cta-btn">Voltar para Meus Formulários</a></p>
+    <div class="botoes-voltar">
+        <a href="criarFormulario.php" class="cta-btn">Criar Novo Formulário</a>
+        <a href="../paginaHome/homeAdmin.php" class="cta-btn">🏠 Página Inicial</a>
+    </div>
 </section>
-
 <script>
-    // Mostrar/ocultar opções de resposta ao alterar o tipo
-        document.getElementById('tipo-pergunta').addEventListener('change', function () {
+  // Mostrar/ocultar opções de resposta ao alterar o tipo
+  document.getElementById('tipo-pergunta').addEventListener('change', function () {
         const tipoPergunta = this.value;
         const opcoesResposta = document.getElementById('opcoes-resposta');
         const opcoesInputs = opcoesResposta.querySelectorAll('input[name="opcoes[]"]');
@@ -79,8 +85,8 @@
         }
     });
 
-    // Botão de adicionar opção principal
-    document.getElementById('adicionar-opcao').addEventListener('click', function () {
+ // Botão de adicionar opção principal
+ document.getElementById('adicionar-opcao').addEventListener('click', function () {
         const containerOpcoes = document.getElementById('container-opcoes');
         const novaOpcao = document.createElement('div');
         novaOpcao.className = 'opcao';
@@ -94,8 +100,8 @@
         novaOpcao.querySelector('.remover-opcao').addEventListener('click', () => novaOpcao.remove());
     });
 
-    // Perguntas encadeadas dinâmicas
-    document.addEventListener('click', function (event) {
+// Perguntas encadeadas dinâmicas
+document.addEventListener('click', function (event) {
         if (event.target.classList.contains('adicionar-pergunta-encadeada')) {
             const opcao = event.target.closest('.opcao');
             const novaPerguntaHTML = `
@@ -113,7 +119,7 @@
                             </option>
                         <?php endforeach; ?>
                     </select>
-                    <div class="opcoes-encadeadas" style="display: none;">
+    <div class="opcoes-encadeadas" style="display: none;">
                         <h5>Opções de Resposta</h5>
                         <div class="container-opcoes-encadeadas"></div>
                         <button type="button" class="adicionar-opcao-encadeada cta-btn">+ Adicionar Opção</button>
@@ -150,8 +156,8 @@
         }
     });
 
-    // Mensagem de sessão
-    <?php if (isset($_SESSION['mensagem'])): ?>
+ // Mensagem de sessão
+ <?php if (isset($_SESSION['mensagem'])): ?>
         alert("<?php echo addslashes($_SESSION['mensagem']); ?>");
         <?php unset($_SESSION['mensagem']); ?>
     <?php endif; ?>

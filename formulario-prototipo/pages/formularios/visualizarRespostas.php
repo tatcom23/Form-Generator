@@ -95,7 +95,7 @@ $conn->close();
 <body>
 
 <section class="login-container">
-    <h1><?php echo $nome_formulario; ?></h1>
+    <h1>Formulário: <?php echo $nome_formulario; ?></h1>
 
     <?php if (empty($respostas_por_data)): ?>
         <p>Nenhuma resposta encontrada para este formulário.</p>

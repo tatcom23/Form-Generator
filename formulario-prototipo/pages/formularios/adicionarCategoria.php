@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Adicionar Categoria - Form Generator</title>
-    <link rel="stylesheet" href="../../css/responderFormulario.css">
+    <link rel="stylesheet" href="../../css/adicionarCategoria.css">
 </head>
 <body>
 
@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <button type="submit" class="cta-btn">Adicionar Categoria</button>
     </form>
 
-    <p><a href="detalhesFormulario.php?id=<?php echo htmlspecialchars($id_formulario); ?>" class="cta-btn">Voltar para o Formulário</a></p>
+    <a href="detalhesFormulario.php?id=<?php echo htmlspecialchars($id_formulario); ?>" class="cta-btn voltar-btn">Voltar para o Formulário</a>
 </section>
 
 </body>

@@ -78,7 +78,11 @@ $conn->close();
         <p>Nenhum formulário encontrado.</p>
     <?php endif; ?>
 
-    <p><a href="criarFormulario.php" class="cta-btn">Criar Novo Formulário</a></p>
+    <div class="botoes-voltar">
+        <a href="criarFormulario.php" class="cta-btn">Criar Novo Formulário</a>
+        <a href="../paginaHome/homeAdmin.php" class="cta-btn">🏠 Página Inicial</a>
+</div>
+
 </section>
 
 </body>
