@@ -2,102 +2,118 @@
 
 /* Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Estilo base */
+/* Base da página */
 body {
+    margin: 0;
+    padding: 0;
     background-color: #0a0a0a;
-    color: #ffffff;
-    font-family: 'Poppins', sans-serif;
-    overflow-y: auto;
-    min-height: 100vh;
+    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
-}
-
-/* Container principal */
-.login-container {
-    max-width: 400px; /* Tamanho reduzido */
-    width: 100%;
+  }
+  
+  /* Container do login */
+  .login-container {
+    margin-top: 50px;
     background-color: #111;
-    padding: 30px;
     border-radius: 16px;
-    box-shadow: 0 0 15px rgba(0, 255, 64, 0.3);
-    text-align: center;
-}
-
-/* Título */
-.login-container h1 {
-    font-size: 1.8rem;
-    color: #00ff00da;
-    text-shadow: 0 0 4px #00ff00da;
-    margin-bottom: 10px;
-}
-
-/* Subtítulo */
-.login-container p {
-    font-size: 1rem;
-    color: #cccccc;
-    margin-bottom: 20px;
-}
-
-/* Inputs base */
-input[type="text"],
-input[type="password"] {
+    box-shadow: 0 0 20px rgba(0, 255, 64, 0.25);
     width: 100%;
-    padding: 12px 15px;
-    border: 2px solid rgba(0, 255, 64, 0.3);
-    border-radius: 10px;
-    background-color: #1a1a1a;
-    color: #ffffff;
+    max-width: 500px;
+    padding: 45px 45px;
+    text-align: center;
+  }
+  
+  /* Títulos */
+  .login-container h1 {
+    font-size: 2rem;
+    color: #00ff00da;
+    margin-bottom: 8px;
+    text-shadow: 0 0 4px #00ff00da;
+  }
+  
+  .login-container p {
     font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 24px;
+  }
+  
+  /* Campo de input geral */
+  .input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
     margin-bottom: 20px;
-    transition: all 0.3s ease;
-}
-
-/* Focus nos inputs */
-input[type="text"]:focus,
-input[type="password"]:focus {
+  }
+  
+  .input-container input {
+    width: 100%;
+    padding: 12px;
+    padding-right: 40px;
+    background-color: #1c1c1c;
+    border: 2px solid rgba(0, 255, 64, 0.25);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border 0.3s;
+  }
+  
+  .input-container input::placeholder {
+    color: #aaa;
+  }
+  
+  .input-container input:focus {
     outline: none;
     border-color: #00ff00;
     box-shadow: 0 0 6px #00ff00a0;
-}
-
-/* Campo de senha com botão embutido */
-.senha-container {
-    position: relative;
-    margin-bottom: 20px;
-}
-
-.senha-container input {
-    width: 100%;
-    padding-right: 30px; /* Ajustado para o ícone */
-}
-
-/* Botão mostrar/ocultar dentro do input */
-.mostrar-senha-btn {
+  }
+  
+  /* Botão mostrar/ocultar senha */
+  .toggle-senha {
     position: absolute;
     top: 50%;
-    right: 10px; /* Ajuste da posição à direita */
+    right: 12px;
     transform: translateY(-50%);
-    background: none;
+    background: transparent;
     border: none;
     cursor: pointer;
     padding: 0;
-}
-
-.mostrar-senha-btn i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .toggle-senha i {
+    color: #00ff00;
+    font-size: 18px;
+  }
+  
+  /* Link "esqueceu a senha" */
+  .forgot-password {
+    margin: -10px 0 20px;
+    text-align: right;
+    font-size: 0.9rem;
+  }
+  
+  .forgot-password a {
     color: #00ff00da;
-    font-size: 14px; /* Ícone menor */
-}
-
-/* Botão principal */
-.cta-btn {
+    text-decoration: none;
+  }
+  
+  .forgot-password a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Botão de login */
+  .cta-btn {
     width: 100%;
     padding: 14px;
     font-size: 1rem;
@@ -110,43 +126,45 @@ input[type="password"]:focus {
     box-shadow: 0 4px 6px rgba(0, 255, 0, 0.2);
     cursor: pointer;
     transition: 0.3s ease;
-}
-
-.cta-btn:hover {
+  }
+  
+  .cta-btn:hover {
     background-color: #00ff00da;
     color: #000;
-    box-shadow: 0 0 10px #00ff00;
-}
-
-/* Links adicionais */
-.forgot-password,
-.create-account {
-    margin-top: 15px;
+    box-shadow: 0 0 12px #00ff00;
+  }
+  
+  /* Criar conta */
+  .create-account {
+    margin-top: 20px;
     font-size: 0.95rem;
-}
-
-.forgot-password a,
-.create-account a {
+  }
+  
+  .create-account a {
     color: #00ff00da;
     text-decoration: none;
-}
-
-.forgot-password a:hover,
-.create-account a:hover {
+  }
+  
+  .create-account a:hover {
     text-decoration: underline;
-}
-
-/* Responsividade */
-@media (max-width: 480px) {
+  }
+  
+  /* Responsividade */
+  @media (max-width: 480px) {
     .login-container {
-        padding: 20px;
+      padding: 30px 20px;
     }
-
+  
     h1 {
-        font-size: 1.5rem;
+      font-size: 1.5rem;
     }
-
+  
     .cta-btn {
-        font-size: 0.95rem;
+      font-size: 0.95rem;
     }
-}
+  
+    .input-container input {
+      font-size: 0.95rem;
+    }
+  }
+  
