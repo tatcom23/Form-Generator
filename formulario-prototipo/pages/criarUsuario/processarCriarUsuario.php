@@ -1,4 +1,4 @@
-<?php 
+<?php
 // Inclui a classe Usuario
 require_once 'usuario.php';
 
@@ -90,9 +90,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    // Após receber os dados do POST
+    $roles_validas = ['admin', 'usuario'];
+    if (!in_array($user_role, $roles_validas)) {
+        echo "<script>alert('Tipo de usuário inválido.'); window.history.back();</script>";
+        exit();
+    }
+
     // Fecha o stmt e a conexão
     $stmt_check->close();
     $stmt_insert->close();
     $conn->close();
 }
-?>

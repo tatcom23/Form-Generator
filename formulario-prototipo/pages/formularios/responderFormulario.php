@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+// Verificação de login
 if (!isset($_SESSION['id_usuario'])) {
     echo "<p>Você precisa estar logado para acessar esta página.</p>";
     exit;
@@ -25,6 +26,42 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
+
+// Verifica se o usuário já respondeu o formulário
+$sql_verifica_resposta = "
+    SELECT COUNT(*) AS total_respostas
+    FROM resposta_usuario ru
+    JOIN RESPOSTA r ON ru.RESPOSTA_id_resposta = r.id_resposta
+    WHERE ru.USUARIO_id_usuario = ?
+      AND r.id_pergunta IN (
+          SELECT id_pergunta
+          FROM PERGUNTA
+          WHERE FORMULARIO_id_formulario = ?
+      )
+";
+$stmt_verifica_resposta = $conn->prepare($sql_verifica_resposta);
+$stmt_verifica_resposta->bind_param("ii", $_SESSION['id_usuario'], $id_formulario);
+$stmt_verifica_resposta->execute();
+$result_verifica_resposta = $stmt_verifica_resposta->get_result();
+$verifica_resposta = $result_verifica_resposta->fetch_assoc();
+
+if ($verifica_resposta['total_respostas'] > 0) {
+    // Verifica o papel do usuário (admin ou usuario)
+    if ($_SESSION['user_role'] === 'admin') {
+        $homeUrl = '../paginaHome/homeAdmin.php';
+    } else {
+        $homeUrl = '../paginaHome/homeUsuario.php';
+    }
+
+    // Exibe o alerta e redireciona para a página correspondente
+    echo "<script>
+            alert('Você já respondeu este formulário anteriormente.');
+            window.location.href = '$homeUrl';
+          </script>";
+    exit;
+}
+
+$stmt_verifica_resposta->close();
 
 // Busca o nome do formulário
 $sql_nome_formulario = "SELECT nm_formulario FROM FORMULARIO WHERE id_formulario = ?";

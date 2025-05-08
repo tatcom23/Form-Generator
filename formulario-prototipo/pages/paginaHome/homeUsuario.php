@@ -62,7 +62,7 @@ $conn->close();
             <a href="homeUsuario.php" class="logo">Painel Usuário</a>
             <nav>
                 <ul>
-                    <li><a href="../formularios/responderFormulario.php">Responder Formulário</a></li>
+                    <li><a href="../../">Página Inicial</a></li>
                     <li><a href="logout.php">Sair</a></li>
                 </ul>
             </nav>
@@ -86,7 +86,8 @@ $conn->close();
                         echo "Criado em: " . htmlspecialchars($data_formatada);
                     ?>
                     <div class="form-actions">
-                    <a href="responderFormulario.php?id=<?php echo $form['id_formulario']; ?>">Responder Formulário</a>
+                    <a href="../formularios/responderFormulario.php?id=<?php echo $form['id_formulario']; ?>">Responder Formulário</a>|
+                    <a href="../formularios/visualizarRespostas.php?id=<?php echo $form['id_formulario']; ?>">Resposta</a>
                     </div>
                 </div><br>
                     

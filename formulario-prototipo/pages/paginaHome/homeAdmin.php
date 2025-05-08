@@ -84,9 +84,10 @@ $conn->close();
                     ?>
                     <div class="form-actions">
                         <a href="../formularios/detalhesFormulario.php?id=<?php echo $form['id_formulario']; ?>">Detalhes</a> |
-                        <a href="../formularios/visualizarRespostas.php?id=<?php echo $form['id_formulario']; ?>">Respostas</a> |
                         <a href="../formularios/editarFormulario.php?id=<?php echo $form['id_formulario']; ?>">Editar</a> |
                         <a href="../formularios/excluirFormulario.php?id=<?php echo $form['id_formulario']; ?>">Excluir</a> |
+                        <a href="../formularios/responderFormulario.php?id=<?php echo $form['id_formulario']; ?>">Responder</a> |
+                        <a href="../formularios/visualizarRespostas.php?id=<?php echo $form['id_formulario']; ?>">Respostas</a> |
                         <a href="../formularios/adicionarCategoria.php?id=<?php echo $form['id_formulario']; ?>">+ Categoria</a>
                     </div>
                 </div><br>

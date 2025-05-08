@@ -50,7 +50,7 @@ $stmt_perguntas->execute();
 $result_perguntas = $stmt_perguntas->get_result();
 $perguntas = $result_perguntas->fetch_all(MYSQLI_ASSOC);
 
-// Busca todas as respostas do formulário
+// Busca apenas as respostas do usuário logado
 $sql_respostas = "
     SELECT ru.dt_resposta_usuario, u.nm_usuario, p.id_pergunta, p.ds_pergunta, r.ds_resposta
     FROM RESPOSTA r
@@ -58,10 +58,11 @@ $sql_respostas = "
     JOIN USUARIO u ON ru.USUARIO_id_usuario = u.id_usuario
     JOIN PERGUNTA p ON r.id_pergunta = p.id_pergunta
     WHERE p.FORMULARIO_id_formulario = ?
+      AND ru.USUARIO_id_usuario = ?  -- Filtra pelo ID do usuário logado
     ORDER BY ru.dt_resposta_usuario ASC, p.id_pergunta ASC
 ";
 $stmt_respostas = $conn->prepare($sql_respostas);
-$stmt_respostas->bind_param("i", $id_formulario);
+$stmt_respostas->bind_param("ii", $id_formulario, $_SESSION['id_usuario']); // Adiciona o ID do usuário logado
 $stmt_respostas->execute();
 $result_respostas = $stmt_respostas->get_result();
 $respostas = $result_respostas->fetch_all(MYSQLI_ASSOC);
@@ -129,7 +130,16 @@ $conn->close();
         <?php endforeach; ?>
     <?php endif; ?>
 
-    <p><a href="listarFormulario.php" class="cta-btn">Voltar para Meus Formulários</a></p>
+    <?php
+    // Verifica o user_role do usuário logado
+    if ($_SESSION['user_role'] === 'admin') {
+        $homeUrl = "../paginaHome/homeAdmin.php";
+    } else {
+        $homeUrl = "../paginaHome/homeUsuario.php";
+    }
+    ?>
+
+    <p><a href="<?php echo $homeUrl; ?>" class="cta-btn">Voltar para Meus Formulários</a></p>
 </section>
 
 </body>

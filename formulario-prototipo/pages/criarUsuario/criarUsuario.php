@@ -77,8 +77,6 @@
       </label>
     </div>
 
-
-
     <input type="submit" class="cta-btn" value="Criar">
   </form>
 
