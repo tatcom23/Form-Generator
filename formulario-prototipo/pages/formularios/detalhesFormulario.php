@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'utils.php';
 
 if (!isset($_SESSION['id_usuario'])) {
     die("Você precisa estar logado para acessar esta página.");
@@ -26,8 +27,19 @@ if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
 
+// Verifica se o usuário é o dono do formulário
+if (!verificarPropriedadeFormulario($conn, $id_formulario, $_SESSION['id_usuario'])) {
+    echo "<script>
+            alert('Você não tem permissão para editar este formulário.');
+            window.location.href = 'listarFormulario.php';
+          </script>";
+    exit;
+}
+
 // Busca os dados do formulário
-$sql_formulario = "SELECT id_formulario, nm_formulario FROM FORMULARIO WHERE id_formulario = ?";
+$sql_formulario = "SELECT id_formulario, nm_formulario, USUARIO_id_usuario, status 
+                   FROM FORMULARIO 
+                   WHERE id_formulario = ?";
 $stmt_formulario = $conn->prepare($sql_formulario);
 $stmt_formulario->bind_param("i", $id_formulario);
 $stmt_formulario->execute();
@@ -38,6 +50,23 @@ if ($result_formulario->num_rows === 0) {
 }
 
 $formulario = $result_formulario->fetch_assoc();
+
+// Verifica se o usuário logado é o criador do formulário
+if ($formulario['USUARIO_id_usuario'] != $_SESSION['id_usuario']) {
+    echo "<script>
+            alert('Você não tem permissão para editar este formulário.');
+            window.location.href = 'listarFormulario.php';
+          </script>";
+    exit;
+}
+
+// Verifica se o formulário já foi finalizado
+if ($formulario['status'] == 1) {
+    echo "<script>
+    alert('Este formulário já foi finalizado e não pode ser editado.');
+    window.location.href = 'listarFormulario.php';
+  </script>";
+}
 
 // Busca as categorias disponíveis
 $sql_categorias = "SELECT id_categoria, nm_categoria FROM CATEGORIA WHERE FORMULARIO_id_formulario = ?";

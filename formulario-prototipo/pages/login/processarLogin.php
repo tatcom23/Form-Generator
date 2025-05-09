@@ -1,10 +1,6 @@
-<?php 
+<?php
 ob_start(); // Garante que o header() funcione corretamente mesmo que algo tenha sido enviado antes
 session_start(); // Inicia a sessão
-
-// Exibe erros para depuração
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 
 // Verifica se o formulário foi enviado via POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -51,13 +47,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_name'] = $nm_usuario;
             $_SESSION['user_role'] = $user_role;
 
-            // Redireciona para a página inicial com base no papel (admin ou usuário comum)
-            if ($user_role === 'admin') {
-                header("Location: ../paginaHome/homeAdmin.php"); 
+            // Verifica se há um formulário pendente
+            if (isset($_SESSION['formulario_pendente'])) {
+                $id_formulario = $_SESSION['formulario_pendente'];
+                unset($_SESSION['formulario_pendente']); // Limpa a variável de sessão
+
+                // Redireciona para o formulário pendente
+                header("Location: ../formularios/responderFormulario.php?id=" . $id_formulario);
+                exit();
             } else {
-                header("Location: ../paginaHome/homeUsuario.php");
+                // Redireciona para a página inicial com base no papel (admin ou usuário comum)
+                if ($user_role === 'admin') {
+                    header("Location: ../paginaHome/homeAdmin.php");
+                } else {
+                    header("Location: ../paginaHome/homeUsuario.php");
+                }
+                exit();
             }
-            exit();
         } else {
             header("Location: login.php?erro=1");
             exit();

@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'utils.php';
 
 // Verifica se o usuário está logado
 if (!isset($_SESSION['id_usuario'])) {
@@ -27,7 +28,44 @@ if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
 
+// Verifica se o usuário é o dono do formulário
+if (!verificarPropriedadeFormulario($conn, $id_formulario, $_SESSION['id_usuario'])) {
+    echo "<script>
+            alert('Você não tem permissão para editar este formulário.');
+            window.location.href = 'listarFormularios.php';
+          </script>";
+    exit;
+}
+
 try {
+    // Verifica se o formulário ainda está em edição (status = 0)
+    $sql_verifica_status = "SELECT status FROM FORMULARIO WHERE id_formulario = ? AND USUARIO_id_usuario = ?";
+    $stmt_verifica_status = $conn->prepare($sql_verifica_status);
+    $stmt_verifica_status->bind_param("ii", $id_formulario, $_SESSION['id_usuario']);
+    $stmt_verifica_status->execute();
+    $result_verifica_status = $stmt_verifica_status->get_result();
+    $formulario_status = $result_verifica_status->fetch_assoc();
+
+    if (!$formulario_status || $formulario_status['status'] == 1) {
+        // Formulário não encontrado ou já finalizado
+        echo "
+        <!DOCTYPE html>
+        <html lang='pt-BR'>
+        <head>
+            <meta charset='UTF-8'>
+            <title>Erro</title>
+            <script>
+                alert('Este formulário já foi finalizado e não pode ser editado.');
+                window.location.href = 'detalhesFormulario.php?id=" . urlencode($id_formulario) . "';
+            </script>
+        </head>
+        <body>
+        </body>
+        </html>
+        ";
+        exit;
+    }
+
     // Inicia uma transação para garantir consistência
     $conn->begin_transaction();
 

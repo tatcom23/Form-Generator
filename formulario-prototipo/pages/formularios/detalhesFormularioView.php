@@ -13,9 +13,26 @@
     <h2 class="nome-formulario">Formulário: <?php echo htmlspecialchars($formulario['nm_formulario']); ?></h2>
 
     <p>
-    <a href="adicionarCategoria.php?id=<?php echo $formulario['id_formulario']; ?>" class="cta-btn">
-        <i class="fas fa-plus"></i> Adicionar Categoria
-    </a>
+        <a href="adicionarCategoria.php?id=<?php echo $formulario['id_formulario']; ?>" class="cta-btn">
+            <i class="fas fa-plus"></i> Adicionar Categoria
+        </a>
+        <!-- Botão Visualizar Formulário -->
+        <a href="visualizarFormulario.php?id=<?php echo $formulario['id_formulario']; ?>" class="cta-btn">
+            <i class="fas fa-eye"></i> Visualizar Formulário
+        </a>
+        <!-- Botão Finalizar Formulário -->
+        <?php if ($formulario['status'] == 0): ?>
+            <form action="finalizarFormulario.php" method="POST" style="display: inline;">
+                <input type="hidden" name="id_formulario" value="<?php echo htmlspecialchars($formulario['id_formulario']); ?>">
+                <button type="submit" class="cta-btn" onclick="return confirm('Tem certeza que deseja finalizar este formulário? Após finalizar, não será possível adicionar novas perguntas.')">
+                    <i class="fas fa-check"></i> Finalizar Formulário
+                </button>
+            </form>
+        <?php else: ?>
+            <button class="cta-btn" disabled>
+                <i class="fas fa-lock"></i> Formulário Finalizado
+            </button>
+        <?php endif; ?>
     </p>
 
     <?php if (count($categorias) === 0): ?>
@@ -23,12 +40,12 @@
     <?php endif; ?>
     
     <form class="login-form" id="form-adicionar-pergunta" action="processarAdicionarPergunta.php" method="POST">
-    <input type="hidden" name="id_formulario" value="<?php echo htmlspecialchars($formulario['id_formulario']); ?>">
+        <input type="hidden" name="id_formulario" value="<?php echo htmlspecialchars($formulario['id_formulario']); ?>">
 
         <label for="ds_pergunta">Texto da Pergunta</label>
         <input type="text" name="ds_pergunta" placeholder="Digite a pergunta" required>
 
-         <label for="categoria">Categoria</label>
+        <label for="categoria">Categoria</label>
         <select name="id_categoria" required>
             <option value="" disabled selected>Categoria</option>
             <?php foreach ($categorias as $categoria): ?>
@@ -69,6 +86,7 @@
         <a href="../paginaHome/homeAdmin.php" class="cta-btn">🏠 Página Inicial</a>
     </div>
 </section>
+
 <script>
   // Mostrar/ocultar opções de resposta ao alterar o tipo
   document.getElementById('tipo-pergunta').addEventListener('change', function () {

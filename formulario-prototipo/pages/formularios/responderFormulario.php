@@ -1,12 +1,6 @@
 <?php
 session_start();
 
-// Verificação de login
-if (!isset($_SESSION['id_usuario'])) {
-    echo "<p>Você precisa estar logado para acessar esta página.</p>";
-    exit;
-}
-
 // Coleta o ID do formulário da URL
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     echo "<p>ID do formulário não especificado.</p>";
@@ -14,6 +8,16 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 }
 
 $id_formulario = $_GET['id'];
+
+// Verificação de login
+if (!isset($_SESSION['id_usuario'])) {
+    // Armazena o ID do formulário na sessão para redirecionamento posterior
+    $_SESSION['formulario_pendente'] = $id_formulario;
+
+    // Redireciona para a página de login
+    header("Location: ../login/login.php");
+    exit;
+}
 
 // Conexão com o banco de dados
 $servername = "localhost";
