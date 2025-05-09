@@ -69,7 +69,8 @@ $conn->close();
                         <a href="editarFormulario.php?id=<?php echo $formulario['id_formulario']; ?>">Editar</a> |
                         <a href="excluirFormulario.php?id=<?php echo $formulario['id_formulario']; ?>" onclick="return confirm('Tem certeza?')">Excluir</a> |
                         <a href="responderFormulario.php?id=<?php echo $formulario['id_formulario']; ?>">Responder</a>|
-                        <a href="visualizarRespostas.php?id=<?php echo $formulario['id_formulario']; ?>">Respostas</a>
+                        <a href="visualizarRespostas.php?id=<?php echo $formulario['id_formulario']; ?>">Respostas</a>|
+                        <a href="compartilharFormulario.php?id=<?php echo $formulario['id_formulario']; ?>">Compartilhar</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

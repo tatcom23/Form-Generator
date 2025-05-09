@@ -1,12 +1,16 @@
 <?php
 session_start();
-require_once 'utils.php';
 
+// Verifica se o usuário está logado
 if (!isset($_SESSION['id_usuario'])) {
-    die("Você precisa estar logado para acessar esta página.");
+    echo "<script>
+            alert('Você precisa estar logado para acessar esta página.');
+            window.location.href = '../login/login.php';
+          </script>";
+    exit;
 }
 
-// Coleta o ID do formulário
+// Coleta o ID do formulário via POST
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_formulario'])) {
     $id_formulario = $_POST['id_formulario'];
 
@@ -29,13 +33,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_formulario'])) {
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        // Redireciona para a página de visualização
-        header("Location: visualizarFormulario.php?id=" . $id_formulario);
+        // Redireciona para a página de compartilhamento com mensagem de sucesso
+        echo "<script>
+                alert('Formulário finalizado com sucesso!');
+                window.location.href = 'compartilharFormulario.php?id=" . urlencode($id_formulario) . "';
+              </script>";
         exit;
     } else {
-        die("Erro ao finalizar o formulário. Verifique suas permissões.");
+        // Exibe mensagem de erro caso o formulário não seja encontrado ou o usuário não tenha permissão
+        echo "<script>
+                alert('Erro ao finalizar o formulário. Verifique suas permissões.');
+                window.location.href = 'detalhesFormularioView.php?id=" . urlencode($id_formulario) . "';
+              </script>";
+        exit;
     }
 } else {
-    die("Método inválido ou ID do formulário não especificado.");
+    // Redireciona caso o método ou ID do formulário não esteja especificado
+    echo "<script>
+            alert('Método inválido ou ID do formulário não especificado.');
+            window.location.href = 'listarFormularios.php';
+          </script>";
+    exit;
 }
 ?>
