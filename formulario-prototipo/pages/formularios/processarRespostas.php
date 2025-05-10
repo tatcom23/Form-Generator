@@ -115,7 +115,7 @@ try {
                 $row = $result_verificar_resposta->fetch_assoc();
                 $id_resposta = $row['id_resposta'];
             } else {
-                // Resposta é um texto ou outro tipo de dado (Texto, Número, Data, Email)
+                // Resposta é um texto ou outro tipo de dado (Texto, Número, Data, Email, Classificação)
                 $id_resposta = inserirResposta($conn, $id_pergunta, $resposta); // Insere a resposta na tabela `resposta`
             }
 

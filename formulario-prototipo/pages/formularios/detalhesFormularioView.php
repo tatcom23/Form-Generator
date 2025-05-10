@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <title>Detalhes do Formulário - Form Generator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../../css/detalhesFormulario.css">
 </head>
+
 <body>
 
 <section class="login-container">
@@ -38,7 +40,7 @@
     <?php if (count($categorias) === 0): ?>
         <p>Nenhuma categoria cadastrada.</p>
     <?php endif; ?>
-    
+
     <form class="login-form" id="form-adicionar-pergunta" action="processarAdicionarPergunta.php" method="POST">
         <input type="hidden" name="id_formulario" value="<?php echo htmlspecialchars($formulario['id_formulario']); ?>">
 
@@ -55,7 +57,7 @@
             <?php endforeach; ?>
         </select>
 
-        <label for="tipo_pergunta">Tipo de Pergunta</label>
+        <label for="tipo_pergunta">Tipo de Resposta</label>
         <select name="id_tipo_pergunta" id="tipo-pergunta" required>
             <option value="" disabled selected>Tipo de Resposta</option>
             <?php foreach ($tipos_pergunta as $tipo): ?>
@@ -88,23 +90,32 @@
 </section>
 
 <script>
-  // Mostrar/ocultar opções de resposta ao alterar o tipo
-  document.getElementById('tipo-pergunta').addEventListener('change', function () {
+    // Mostrar/ocultar opções de resposta ao alterar o tipo
+    document.getElementById('tipo-pergunta').addEventListener('change', function () {
         const tipoPergunta = this.value;
         const opcoesResposta = document.getElementById('opcoes-resposta');
         const opcoesInputs = opcoesResposta.querySelectorAll('input[name="opcoes[]"]');
 
-        if (tipoPergunta === '3' || tipoPergunta === '4') {
+        // Oculta todas as seções de opções/respostas
+        opcoesResposta.style.display = 'none';
+
+        // Exibe a seção de opções para múltipla/única escolha
+        if (tipoPergunta === '3' || tipoPergunta === '4') { // IDs para Múltipla Escolha e Única Escolha
             opcoesResposta.style.display = 'block';
             opcoesInputs.forEach(input => input.setAttribute('required', 'required'));
         } else {
-            opcoesResposta.style.display = 'none';
+            // Remove o atributo 'required' das opções
             opcoesInputs.forEach(input => input.removeAttribute('required'));
+        }
+
+        // Exibe uma mensagem para o tipo "Classificação"
+        if (tipoPergunta === '7') { // Substitua '7' pelo ID do tipo "Classificação"
+            alert("Este tipo de pergunta permite que os respondentes classifiquem algo de 1 a 5 estrelas.");
         }
     });
 
- // Botão de adicionar opção principal
- document.getElementById('adicionar-opcao').addEventListener('click', function () {
+    // Botão de adicionar opção principal
+    document.getElementById('adicionar-opcao').addEventListener('click', function () {
         const containerOpcoes = document.getElementById('container-opcoes');
         const novaOpcao = document.createElement('div');
         novaOpcao.className = 'opcao';
@@ -118,8 +129,8 @@
         novaOpcao.querySelector('.remover-opcao').addEventListener('click', () => novaOpcao.remove());
     });
 
-// Perguntas encadeadas dinâmicas
-document.addEventListener('click', function (event) {
+    // Perguntas encadeadas dinâmicas
+    document.addEventListener('click', function (event) {
         if (event.target.classList.contains('adicionar-pergunta-encadeada')) {
             const opcao = event.target.closest('.opcao');
             const novaPerguntaHTML = `
@@ -137,7 +148,7 @@ document.addEventListener('click', function (event) {
                             </option>
                         <?php endforeach; ?>
                     </select>
-    <div class="opcoes-encadeadas" style="display: none;">
+                    <div class="opcoes-encadeadas" style="display: none;">
                         <h5>Opções de Resposta</h5>
                         <div class="container-opcoes-encadeadas"></div>
                         <button type="button" class="adicionar-opcao-encadeada cta-btn">+ Adicionar Opção</button>
@@ -174,12 +185,13 @@ document.addEventListener('click', function (event) {
         }
     });
 
- // Mensagem de sessão
- <?php if (isset($_SESSION['mensagem'])): ?>
+    // Mensagem de sessão
+    <?php if (isset($_SESSION['mensagem'])): ?>
         alert("<?php echo addslashes($_SESSION['mensagem']); ?>");
         <?php unset($_SESSION['mensagem']); ?>
     <?php endif; ?>
 </script>
 
 </body>
+
 </html>

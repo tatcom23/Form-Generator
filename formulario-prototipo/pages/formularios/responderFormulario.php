@@ -118,6 +118,7 @@ $conn->close();
     <meta charset="UTF-8">
     <title>Responder Formulário - <?php echo htmlspecialchars($nome_formulario); ?></title>
     <link rel="stylesheet" href="../../css/responderFormulario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -155,6 +156,16 @@ $conn->close();
                     <input type="date" name="resposta[<?php echo $pergunta['id_pergunta']; ?>]" required>
                 <?php elseif ($pergunta['nm_tipo_pergunta'] === 'Número'): ?>
                     <input type="number" name="resposta[<?php echo $pergunta['id_pergunta']; ?>]" placeholder="Digite um número" required>
+                <?php elseif ($pergunta['nm_tipo_pergunta'] === 'Classificação'): ?>
+                    <!-- Classificação com estrelas -->
+                    <div class="classificacao">
+                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                            <button type="button" class="estrela" data-valor="<?php echo $i; ?>" onclick="selecionarEstrela(<?php echo $pergunta['id_pergunta']; ?>, <?php echo $i; ?>)">
+                                <i class="fa-star <?php echo $i <= 0 ? 'far' : 'fas'; ?>"></i> <!-- Ícone de estrela -->
+                            </button>
+                        <?php endfor; ?>
+                        <input type="hidden" name="resposta[<?php echo $pergunta['id_pergunta']; ?>]" id="resposta-<?php echo $pergunta['id_pergunta']; ?>" value="" required>
+                    </div>
                 <?php endif; ?>
             </div>
             <br>
@@ -165,6 +176,21 @@ $conn->close();
 
     <p><a href="../paginaHome/homeUsuario.php" class="cta-btn">🏠 Página Inicial</a></p>
 </section>
+
+<script>
+function selecionarEstrela(idPergunta, valor) {
+    // Atualiza o valor oculto da resposta
+    document.getElementById('resposta-' + idPergunta).value = valor;
+
+    // Altera o estilo das estrelas
+    const estrelas = document.querySelectorAll(`.classificacao button[data-valor]`);
+    estrelas.forEach(estrela => {
+        const valorEstrela = parseInt(estrela.getAttribute('data-valor'));
+        estrela.querySelector('i').classList.toggle('fas', valorEstrela <= valor);
+        estrela.querySelector('i').classList.toggle('far', valorEstrela > valor);
+    });
+}
+</script>
 
 </body>
 </html>

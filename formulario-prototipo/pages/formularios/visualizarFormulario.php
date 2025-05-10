@@ -80,6 +80,7 @@ $conn->close();
     <meta charset="UTF-8">
     <title>Visualizar Formulário - <?php echo htmlspecialchars($nome_formulario); ?></title>
     <link rel="stylesheet" href="../../css/responderFormulario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -129,6 +130,13 @@ $conn->close();
                     <p>Tipo de Resposta: Data</p>
                 <?php elseif ($pergunta['nm_tipo_pergunta'] === 'Número'): ?>
                     <p>Tipo de Resposta: Número</p>
+                <?php elseif ($pergunta['nm_tipo_pergunta'] === 'Classificação'): ?>
+                    <p>Tipo de Resposta: Classificação (1 a 5 estrelas)</p>
+                    <div class="classificacao">
+                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                            <i class="fa-star far"></i> <!-- Estrelas vazias -->
+                        <?php endfor; ?>
+                    </div>
                 <?php endif; ?>
             </div>
             <br>

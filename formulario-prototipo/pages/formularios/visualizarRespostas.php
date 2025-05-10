@@ -43,7 +43,9 @@ if (!$formulario) {
 $nome_formulario = htmlspecialchars($formulario['nm_formulario']);
 
 // Busca todas as perguntas do formulário
-$sql_perguntas = "SELECT id_pergunta, ds_pergunta FROM PERGUNTA WHERE FORMULARIO_id_formulario = ?";
+$sql_perguntas = "SELECT id_pergunta, ds_pergunta, TIPO_PERGUNTA_id_tipo_pergunta 
+                  FROM PERGUNTA 
+                  WHERE FORMULARIO_id_formulario = ?";
 $stmt_perguntas = $conn->prepare($sql_perguntas);
 $stmt_perguntas->bind_param("i", $id_formulario);
 $stmt_perguntas->execute();
@@ -52,7 +54,7 @@ $perguntas = $result_perguntas->fetch_all(MYSQLI_ASSOC);
 
 // Busca apenas as respostas do usuário logado
 $sql_respostas = "
-    SELECT ru.dt_resposta_usuario, u.nm_usuario, p.id_pergunta, p.ds_pergunta, r.ds_resposta
+    SELECT ru.dt_resposta_usuario, u.nm_usuario, p.id_pergunta, p.TIPO_PERGUNTA_id_tipo_pergunta, p.ds_pergunta, r.ds_resposta
     FROM RESPOSTA r
     JOIN resposta_usuario ru ON r.id_resposta = ru.RESPOSTA_id_resposta
     JOIN USUARIO u ON ru.USUARIO_id_usuario = u.id_usuario
@@ -92,6 +94,7 @@ $conn->close();
     <meta charset="UTF-8">
     <title>Visualizar Respostas - <?php echo $nome_formulario; ?></title>
     <link rel="stylesheet" href="../../css/visualizarRespostas.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -114,7 +117,17 @@ $conn->close();
                         $resposta_encontrada = false;
                         foreach ($dados['respostas'] as $resposta) {
                             if ($resposta['id_pergunta'] == $pergunta['id_pergunta']) {
-                                echo htmlspecialchars($resposta['ds_resposta']);
+                                if ($pergunta['TIPO_PERGUNTA_id_tipo_pergunta'] === 7) { // Substitua '7' pelo ID do tipo "Classificação"
+                                    $valor_classificacao = intval($resposta['ds_resposta']);
+                                    echo "<div class='classificacao'>";
+                                    for ($i = 1; $i <= 5; $i++) {
+                                        $classe_estrela = ($i <= $valor_classificacao) ? 'fas fa-star' : 'far fa-star';
+                                        echo "<i class='$classe_estrela'></i>";
+                                    }
+                                    echo "</div>";
+                                } else {
+                                    echo htmlspecialchars($resposta['ds_resposta']);
+                                }
                                 $resposta_encontrada = true;
                                 break;
                             }

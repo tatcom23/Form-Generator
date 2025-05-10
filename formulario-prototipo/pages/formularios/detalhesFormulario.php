@@ -2,15 +2,22 @@
 session_start();
 require_once 'utils.php';
 
+// Verifica se o usuário está logado
 if (!isset($_SESSION['id_usuario'])) {
-    die("Você precisa estar logado para acessar esta página.");
+    die("<script>
+            alert('Você precisa estar logado para acessar esta página.');
+            window.location.href = '../login/login.php';
+         </script>");
 }
 
 require_once 'Pergunta.php';
 
 // Coleta o ID do formulário da URL
 if (!isset($_GET['id']) || empty($_GET['id'])) {
-    die("ID do formulário não especificado.");
+    die("<script>
+            alert('ID do formulário não especificado.');
+            window.location.href = 'listarFormulario.php';
+         </script>");
 }
 
 $id_formulario = $_GET['id'];
@@ -46,7 +53,10 @@ $stmt_formulario->execute();
 $result_formulario = $stmt_formulario->get_result();
 
 if ($result_formulario->num_rows === 0) {
-    die("Formulário não encontrado.");
+    die("<script>
+            alert('Formulário não encontrado.');
+            window.location.href = 'listarFormulario.php';
+         </script>");
 }
 
 $formulario = $result_formulario->fetch_assoc();
@@ -63,13 +73,16 @@ if ($formulario['USUARIO_id_usuario'] != $_SESSION['id_usuario']) {
 // Verifica se o formulário já foi finalizado
 if ($formulario['status'] == 1) {
     echo "<script>
-    alert('Este formulário já foi finalizado e não pode ser editado.');
-    window.location.href = 'listarFormulario.php';
-  </script>";
+            alert('Este formulário já foi finalizado e não pode ser editado.');
+            window.location.href = 'listarFormulario.php';
+          </script>";
+    exit;
 }
 
 // Busca as categorias disponíveis
-$sql_categorias = "SELECT id_categoria, nm_categoria FROM CATEGORIA WHERE FORMULARIO_id_formulario = ?";
+$sql_categorias = "SELECT id_categoria, nm_categoria 
+                   FROM CATEGORIA 
+                   WHERE FORMULARIO_id_formulario = ?";
 $stmt_categorias = $conn->prepare($sql_categorias);
 $stmt_categorias->bind_param("i", $id_formulario);
 $stmt_categorias->execute();
@@ -77,7 +90,8 @@ $result_categorias = $stmt_categorias->get_result();
 $categorias = $result_categorias->fetch_all(MYSQLI_ASSOC);
 
 // Busca os tipos de perguntas disponíveis
-$sql_tipos_pergunta = "SELECT id_tipo_pergunta, nm_tipo_pergunta FROM TIPO_PERGUNTA";
+$sql_tipos_pergunta = "SELECT id_tipo_pergunta, nm_tipo_pergunta 
+                       FROM TIPO_PERGUNTA";
 $result_tipos_pergunta = $conn->query($sql_tipos_pergunta);
 $tipos_pergunta = $result_tipos_pergunta->fetch_all(MYSQLI_ASSOC);
 
